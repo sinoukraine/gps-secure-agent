@@ -1,0 +1,180 @@
+<div class="page verification_page" data-page="asset.verification">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="backToIndex link  "> <i class="f7-icons icon-header-arrow-back"></i></a>
+            </div>
+            <div class="left navbar_title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG00}}</div>
+            <!--  <div class="right">
+                 <a href="#" class="link deleteAllNotifications" ><i class="f7-icons icon-header-delete"></i></a>
+             </div>      -->
+        </div>
+    </div>
+
+
+    <div class="toolbar toolbar-bottom toolbar-verif-inner">
+        <div class="toolbar-inner ">
+            <a href="#" class="btn-bottom-cs link openStatusPage">{{@global.LANGUAGE.VERIFICATION__MSG00}}</a>
+            <a href="#" class="btn-bottom-cs link openLocationPage">{{@global.LANGUAGE.VERIFICATION__MSG01}}</a>
+        </div>
+    </div>
+
+    <div class="page-content ">
+
+        <!-- <div class="content-block-title border_top showBlockControll">{{@global.LANGUAGE.CLIENT_DETAILS_MSG13}}<i class="f7-icons icon-other-arrow-drop-dowm"></i></div> -->
+        <div class="list-block list-block-first media-list list-block-readonly list-block-readonly-wider no-hairlines-between verificationList">
+            <ul>
+                <li class="item-content color-red">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG01}}:</div>
+                            <div>{{IMEI}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media">
+                        <i class="f7-icons icon-other-service-details"></i>
+                    </div>
+                </li>
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG02}}:</div>
+                            <div>{{IMSI}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG07}}:</div>
+                            <div>{{TaskID}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG08}}:</div>
+                            <div>{{Product}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG09}}:</div>
+                            <div>{{Service}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG03}}:</div>
+                            <div>{{Name}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG10}}:</div>
+                            <div>{{Account}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                {{#if LoginName}}
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.CLIENT_DETAILS_MSG01}}:</div>
+                            <div>{{LoginName}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                {{/if}} {{#if FirstName}}
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.CLIENT_DETAILS_MSG02}}:</div>
+                            <div>{{FirstName}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                {{/if}} {{#if LastName}}
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.CLIENT_DETAILS_MSG11}}:</div>
+                            <div>{{LastName}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                {{/if}} {{#if PhoneNumber}}
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.CLIENT_DETAILS_MSG04}}:</div>
+                            <div>{{PhoneNumber}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                {{/if}} {{#if Date}}
+                <li class="item-content">
+
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG04}}:</div>
+                            <div>{{Date}}</div>
+                        </div>
+                    </div>
+                    <div class="item-media"></div>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+
+        <!-- 
+        <div class="result result1">
+            <div class="content-block text-a-c">
+                <img class="verify_img" src="resources/images/verified.svg" alt="">
+                <div class="verify_text verified">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG05}}</div>
+            </div>
+        </div>
+         -->
+
+        <!-- 
+        <div class="result result2">
+            <div class="content-block content_block_notes">
+                <span class="color-danger">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG06}}</span><br>
+                {{@global.LANGUAGE.PROMPT_MSG021}}
+            </div>            
+            <div class="content-block">
+                <a href="#" class="button button-big button-fill color-green verifyAgain">{{@global.LANGUAGE.ASSET_VIRIFICATION_MSG11}}</a>
+            </div>
+        </div> 
+        -->
+
+    </div>
+</div>

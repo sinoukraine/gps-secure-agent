@@ -1,0 +1,256 @@
+<div class="page bg-color-page page_settings" data-page="asset.settings">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="back link "> <i class="f7-icons icon-header-arrow-back"></i></a>
+            </div>
+            <div class="left navbar_title">{{@global.LANGUAGE.ASSET_SETTINGS_MSG00}}</div>
+            <div class="right">
+                <!-- <a href="#" class="link sendSetting"><i class="f7-icons icon-header-apply"></i></a> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar toolbar-bottom ">
+        <div class="toolbar-inner ">
+            <a href="# " class="btn-bottom-cs link sendSetting ">Save</a>
+        </div>
+    </div>
+    <div class="page-content ">
+
+        <div class="asset_img">
+            <img src="{{AssetImg}}" alt="">
+            <div class="upload_photo">
+                <i class="f7-icons icon-photo-button-1"></i>
+            </div>
+        </div>
+
+
+        <div class="content-block-title border_top showBlockControll">
+            {{@global.LANGUAGE.ASSET_SETTINGS_MSG05}}
+            <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+        </div>
+
+        <div class="list-block media-list list-block-readonly no-hairlines-between no-hairlines sliding active arrow-up">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media">
+                        <i class="f7-icons icon-other-service-details"></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">
+                                {{@global.LANGUAGE.HOME_MSG00}}:
+                            </div>
+                            <div> {{IMEI}}</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">
+                                {{@global.LANGUAGE.HOME_MSG01}}:
+                            </div>
+                            <div> {{IMSI}}</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">
+                                {{@global.LANGUAGE.ASSET_SETTINGS_MSG06}}:
+                            </div>
+                            <div> {{Provider}}</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">
+                                {{@global.LANGUAGE.HOME_MSG10}}:
+                            </div>
+                            <div> {{Customer}}</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media">
+
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">
+                                {{@global.LANGUAGE.HOME_MSG06}}:
+                            </div>
+                            <div> {{Type}}</div>
+                        </div>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+
+
+
+        <div class="content-block-title border_top showBlockControll">{{@global.LANGUAGE.ASSET_SETTINGS_MSG17}}
+            <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+        </div>
+        <div class="list-block media-list no-hairlines-between no-hairlines sliding active arrow-up">
+            <ul>
+
+
+                <li class="item-content">
+                    <div class="item-media"> <i class="f7-icons icon-other-asset-details"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG18}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG18}}" name="AssetName" value="{{AssetName}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG19}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG19}}" data-prev-val="{{Describe7}}" name="Describe7" value="{{Describe7}}" maxlength="25" class="">
+                            <i class="f7-icons icon-scan color-red scanBarCode"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG58}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG58}}" name="StockNumber" value="{{StockNumber}}" maxlength="200" class="">
+                            <i class="f7-icons icon-scan color-red scanBarCode"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG20}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG20}}" name="LicensePlate" value="{{LicensePlate}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG21}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG21}}" name="Describe1" value="{{Describe1}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG22}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG22}}" name="Describe2" value="{{Describe2}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG23}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG23}}" name="Describe3" value="{{Describe3}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG24}}</div>
+                        <div class="item-input">
+                            <input type="tel" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG24}}" name="Describe4" value="{{Describe4}}" maxlength="200" class="only_numbers">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content border_bottom">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG25}}</div>
+                        <div class="item-input">
+                            <input type="tel" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG25}}" name="Odometer" value="{{Odometer}}" maxlength="200" class="only_numbers">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-other-unit"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG26}}</div>
+                        <div class="item-input dflex">
+                            <select name="Unit" data-set="{{Unit}}">                               
+                                <option value="KT" >{{@global.LANGUAGE.ASSET_SETTINGS_MSG37}}</option>
+                                <option value="MPH">{{@global.LANGUAGE.ASSET_SETTINGS_MSG38}}</option>
+                                <option value="MPS">{{@global.LANGUAGE.ASSET_SETTINGS_MSG39}}</option>
+                                <option value="KPH">{{@global.LANGUAGE.ASSET_SETTINGS_MSG40}}</option>                               
+                            </select>
+                            <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media">
+                        <!-- <i class="f7-icons icon-status-address"></i> --></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG50}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG52}}" name="InstallPosition" value="{{InstallPosition}}" maxlength="300" class="">
+                            <!-- <textarea placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG52}}" name="InstallPosition" value="{{InstallPosition}}" maxlength="500" class=""></textarea> -->
+                        </div>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"></div>
+                        <div class="item-inner">
+                            <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG53}}</div>
+                            <div class="item-input dflex">
+                                <select name="FitmentOpt" data-set="{{FitmentOpt}}" multiple>                               
+                                    <option value="A">{{@global.LANGUAGE.ASSET_SETTINGS_MSG51}}</option>
+                                    <option value="B">{{@global.LANGUAGE.ASSET_SETTINGS_MSG54}}</option>
+                                    <option value="C">{{@global.LANGUAGE.ASSET_SETTINGS_MSG55}}</option>
+                                    <option value="D">{{@global.LANGUAGE.ASSET_SETTINGS_MSG56}}</option>                               
+                                </select>
+                                <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content fitment_opt_custom_wrapper">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG57}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_SETTINGS_MSG57}}" name="FitmentOptCustom" value="{{FitmentOptCustom}}" maxlength="300" class=" ">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="page bg-color-page page_commands_history" data-page="asset.commands.history">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="back link "> <i class="f7-icons icon-header-arrow-back"></i></a>
+            </div>
+            <div class="left navbar_title">{{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG00}}</div>
+            <div class="right">
+                <!-- <a href="#" class="link getNewHystory" ><i class="f7-icons icon-header-apply"></i></a> -->
+            </div>
+        </div>
+    </div>
+    <div class="page-content ">
+        <input type="hidden" name="IMSI" value="{{IMSI}}">
+        <input type="hidden" name="LastDay" value="{{LastDay}}">
+
+        <div class="content-block content_block_notes">
+            <span>{{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG02}}</span><br> {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG03}}
+        </div>
+
+        <div class="list-block media-list">
+            <ul>
+                <li class="item-content border_bottom">
+                    <!--  <div class="item-media"><i class="f7-icons icon-other-unit"></i></div> -->
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG06}}</div>
+                        <div class="item-input">
+                            <select name="LastDaySelect" data-set="{{LastDay}}">                               
+                                <option value="1">1 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG04}}</option>
+                                <option value="2">2 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option>
+                                <option value="3">3 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option>
+                                <option value="4">4 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option>
+                                <option value="5">5 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="6">6 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option>                                
+                                <option value="7">7 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="8">8 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="9">9 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="10">10 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="11">11 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="12">12 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="13">13 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                                <option value="14">14 {{@global.LANGUAGE.ASSET_COMMANDS_HISTORY_MSG05}}</option> 
+                            </select>
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-block media-list commandsHistoryList">
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+</div>

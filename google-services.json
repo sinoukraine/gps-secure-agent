@@ -1,0 +1,371 @@
+{
+  "project_info": {
+    "project_number": "1097482483564",
+    "firebase_url": "https://quiktrak-1a820.firebaseio.com",
+    "project_id": "quiktrak-1a820",
+    "storage_bucket": "quiktrak-1a820.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:6709ee669e5a3d64",
+        "android_client_info": {
+          "package_name": "com.bikesafe.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:20148436b61a4eff",
+        "android_client_info": {
+          "package_name": "com.classiccarconcierge.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:f4637fd86e442303",
+        "android_client_info": {
+          "package_name": "com.dachcam.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:9fd46a172c0b57558d2549",
+        "android_client_info": {
+          "package_name": "com.rveye.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:87367253e626c615",
+        "android_client_info": {
+          "package_name": "com.sinopacific.dealer.installer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:952f5fd67352aab18d2549",
+        "android_client_info": {
+          "package_name": "com.sinopacific.gpssecure.agent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:34112cb65ce6ba9c",
+        "android_client_info": {
+          "package_name": "com.sinopacific.gpstrackingwa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:f779bb589c23e98d8d2549",
+        "android_client_info": {
+          "package_name": "com.sinopacific.phonetrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:00a35f4974bea4b7",
+        "android_client_info": {
+          "package_name": "com.sinopacific.pvs.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097482483564:android:a0bc31796da094f9",
+        "android_client_info": {
+          "package_name": "com.warden.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhjlBAHlTG35_oOSom77Oci0LMJsgoEZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097482483564-mt5mtgj811opr3rgev6si0ci7079rvsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097482483564-gotbi2bjhm358gljcbaa9l1rc93ketbb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sinopacific.gpssecure.agent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

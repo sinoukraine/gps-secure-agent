@@ -1,0 +1,164 @@
+<div class="page status_page" data-page="asset.status">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="back link  "><i class="f7-icons icon-header-arrow-back"></i></a>
+            </div>
+            <div class="left navbar_title">{{@global.LANGUAGE.ASSET_STATUS_MSG00}}</div>
+            <div class="right">
+                <!-- <a href="#" class="link notificationMenu"><i class="item-link f7-icons icon-other-menu-content"></i></a> -->
+            </div>
+        </div>
+    </div>
+    <div class="page-content ">
+
+        <div class="list-block media-list list-block-readonly list-block-first no-hairlines-between no-margin">
+            <ul>
+                {{#if Imei}}
+                <li class="item-content color-blue">
+                    <div class="item-media"><i class="f7-icons icon-other-service-details"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG01}}:</div>
+                            <div class="item-title">{{Imei}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if Imsi}}
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG02}}:</div>
+                            <div class="item-title">{{Imsi}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if DeviceType}}
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG14}}:</div>
+                            <div class="item-title">{{DeviceType}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if Name}}
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG13}}:</div>
+                            <div class="item-title">{{Name}}</div>
+                        </div>
+                    </div>
+
+                </li>
+                {{else}}
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG04}}:</div>
+                            <div class="item-title">{{StatusTime}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+
+        <div class="list-block media-list list-block-readonly-iputs no-hairlines no-margin">
+            <ul>
+                {{#if Acc}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-acc"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG05}}:</div>
+                            <div class="col-66">{{Acc}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if Relay}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-relay"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG06}}:</div>
+                            <div class="col-66">{{Relay}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if Battery}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-battery"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG07}}:</div>
+                            <div class="col-66">{{Battery}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if Charger}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-charger"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG08}}:</div>
+                            <div class="col-66">{{Charger}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if Power}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-power"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG09}}:</div>
+                            <div class="col-66">{{Power}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if GPS}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-gps"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG10}}:</div>
+                            <div class="col-66">{{GPS}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if GSM}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-gsm"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG11}}:</div>
+                            <div class="col-66">{{GSM}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}} {{#if GPRS}}
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-wifi"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title row">
+                            <div class="col-33">{{@global.LANGUAGE.ASSET_STATUS_MSG12}}:</div>
+                            <div class="col-66">{{GPRS}}</div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}}
+
+
+            </ul>
+        </div>
+
+
+
+
+    </div>
+</div>

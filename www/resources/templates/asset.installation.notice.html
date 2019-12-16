@@ -1,0 +1,259 @@
+<div class="page bg-color-page page_installation" data-page="asset.installation.notice">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="back link "> <i class="f7-icons icon-header-arrow-back"></i></a>
+            </div>
+            <div class="left navbar_title">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG18}}</div>
+            <div class="right">
+                <!-- <a href="#" class="link sendSetting"><i class="f7-icons icon-header-apply"></i></a> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar toolbar-bottom ">
+        <div class="toolbar-inner ">
+            <a href="# " class="btn-bottom-cs link sendInstallNotice">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG16}}</a>
+        </div>
+    </div>
+    <div class="page-content ">
+
+        <div class="asset_img">
+            <img src="{{AssetImg}}" alt="">
+            <div class="upload_photo">
+                <i class="f7-icons icon-photo-button-1"></i>
+            </div>
+        </div>
+
+        <div class="content-block-title color-red">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG17}}</div>
+
+        <div class="list-block media-list no-hairlines-between no-hairlines sliding active arrow-up">
+            <input type="hidden" name="dealerToken" value="">
+            <input type="hidden" name="deviceType" value="">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media"> <i class="f7-icons icon-other-service-details"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG01}}<span class="color-red">*</span></div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG01}}" name="vinNumber" value="{{vinNumber}}" data-prev-val="{{Describe7}}" maxlength="25" class="">
+                            <i class="f7-icons icon-scan color-red scanBarCode"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG02}}<span class="color-red">*</span></div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG02}}" readonly name="IMEI" value="{{IMEI}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG04}}<span class="color-red">*</span></div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG04}}" name="stockNumber" value="{{stockNumber}}" maxlength="200" class="">
+                            <i class="f7-icons icon-scan color-red scanBarCode"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG05}}</div>
+
+                        <div class="item-input dflex">
+                            <select placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG05}}" name="lot" data-set="{{lot}}">                               
+                               <option value="0">Select Lot</option>
+                            </select>
+                            <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+				
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG20}}</div>
+						<div class="item-input dflex">
+                            <select name="installerCode" data-set="{{installerCode}}">  
+                                <!--<option value="0">Select Installer Code</option>   multiple maxlength="1"                 -->   
+                            </select>
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+				<li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG19}}</div>
+                        <div class="item-input dflex">
+                            <select name="assetCondition" data-set="{{assetCondition}}">  
+                                <option value="0">Select Asset Condition</option>  
+								<option value="new">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG21}}</option>
+                                <option value="used">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG22}}</option>
+                                <option value="other">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG23}}</option>                      
+                            </select>
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-other-unit"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG06}}<span class="color-red">*</span></div>
+                        <div class="item-input dflex">
+                            <select class="border-bottom" name="assetType" data-set="{{assetType}}">                               
+                                <option value="0">Select Asset Type</option>
+                            </select>
+                            <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-other-asset-details"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG07}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG07}}" name="Describe1" value="{{Describe1}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG08}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG08}}" name="Describe2" value="{{Describe2}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG09}}</div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG09}}" name="Describe3" value="{{Describe3}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG10}}</div>
+                        <div class="item-input">
+                            <input type="tel" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG10}}" name="Describe4" value="{{Describe4}}" maxlength="200" class="only_numbers">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media"><i class="f7-icons icon-menu-user-settings"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG11}}<span class="color-red">*</span></div>
+                        <div class="item-input dflex">
+                            <select name="solutionType" data-set="{{solutionType}}" disabled>  
+                                    <option value="0">Select Solution Type</option>                             
+                                <!-- <option value="KT" >{{@global.LANGUAGE.ASSET_SETTINGS_MSG37}}</option>
+                                <option value="MPH">{{@global.LANGUAGE.ASSET_SETTINGS_MSG38}}</option>
+                                <option value="MPS">{{@global.LANGUAGE.ASSET_SETTINGS_MSG39}}</option>
+                                <option value="KPH">{{@global.LANGUAGE.ASSET_SETTINGS_MSG40}}</option>-->
+                            </select>
+                            <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG12}}<span class="color-red">*</span></div>
+                        <div class="item-input dflex">
+                            <select name="servicePlan" data-set="{{servicePlan}}" disabled>  
+                                    <option value="0">Select Service Plan</option>                               
+                                <!-- <option value="KT" >{{@global.LANGUAGE.ASSET_SETTINGS_MSG37}}</option>
+                                <option value="MPH">{{@global.LANGUAGE.ASSET_SETTINGS_MSG38}}</option>
+                                <option value="MPS">{{@global.LANGUAGE.ASSET_SETTINGS_MSG39}}</option>
+                                <option value="KPH">{{@global.LANGUAGE.ASSET_SETTINGS_MSG40}}</option>-->
+                            </select>
+                            <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+                            <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="display-none">
+                    <div class="item-content">
+                        <div class="item-media"></div>
+                        <div class="item-inner">
+                            <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG13}}</div>
+                            <div class="item-input dflex">
+                                <select name="FitmentOpt" data-set="{{FitmentOpt}}" multiple >                               
+                                    <option value="A">{{@global.LANGUAGE.ASSET_SETTINGS_MSG51}}</option>
+                                    <option value="B">{{@global.LANGUAGE.ASSET_SETTINGS_MSG54}}</option>
+                                    <option value="C">{{@global.LANGUAGE.ASSET_SETTINGS_MSG55}}</option>
+                                    <option value="D">{{@global.LANGUAGE.ASSET_SETTINGS_MSG56}}</option>                               
+                                </select>
+                                <!-- <img class="img-arrow-cs" src="resources/images/arrow.svg" alt="arrow"> -->
+                                <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="display-none item-content fitment_opt_custom_wrapper">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">Fitment Option Custom</div>
+                        <div class="item-input item-input-field">
+                            <input type="text" placeholder="Fitment Option Custom" name="FitmentOptCustom" value="" maxlength="300" class="">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG03}}<span class="color-red">*</span></div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG03}}" name="registration" value="{{registration}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG14}}</div>
+                        <div class="item-input dflex">
+                            <input type="tel" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG14}}" name="installNotice" value="{{installNotice}}" maxlength="200">
+                            <i class="f7-icons icon-question color-red notice-popover-link" data-tooltip="Location of device within the asset"></i>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG15}}</div>
+                        <div class="item-input item-input-field">
+                            <textarea placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG15}}" name="Notes" maxlength="400" class=""></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+</div>

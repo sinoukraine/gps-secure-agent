@@ -1,0 +1,144 @@
+<div class="page position_page" data-page="asset.position">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="back link  "> <i class="f7-icons icon-header-arrow-back"></i></a>
+            </div>
+            <div class="left navbar_title">{{PageTitle}}</div>
+            <!-- {{@global.LANGUAGE.ASSET_POSITION_MSG00}} -->
+            {{#unless Live}}
+            <div class="right">
+                <a href="#" class="link notificationMenu"><i class="item-link f7-icons icon-other-menu-content"></i></a>
+            </div>
+            {{/unless}}
+        </div>
+    </div>
+    <div class="page-content ">
+        <div class="position_map">
+            <div class="map" id="map"></div>
+        </div>
+        <div class="position_bottom">
+            <div class="list-block media-list list-block-readonly list-block-first no-hairlines-between no-margin">
+                <ul>
+                    {{#if Imei}}
+                    <li class="item-content color-blue">
+                        <div class="item-media">
+                            <i class="f7-icons icon-other-service-details"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG01}} : </div>
+                                <div>{{Imei}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/if}} {{#if Imsi}}
+                    <li class="item-content">
+                        <div class="item-media"></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG02}} : </div>
+                                <div>{{Imsi}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/if}} {{#if AssetName}}
+                    <li class="item-content">
+                        <div class="item-media"></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG03}} : </div>
+                                <div>{{AssetName}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/if}} {{#if PositionTime}}
+                    <li class="item-content">
+                        <div class="item-media"></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{@global.LANGUAGE.ASSET_STATUS_MSG04}} : </div>
+                                <div>{{PositionTime}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/if}}
+                </ul>
+            </div>
+            <div class="list-block media-list list-block-readonly-iputs no-hairlines no-margin">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-media"><i class="f7-icons icon-speed"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title row">
+                                {{#if Speed}}{{Speed}}{{else}}0{{/if}} {{@global.LANGUAGE.ASSET_POSITION_MSG01}}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-media"><i class="f7-icons icon-loc"></i></div>
+                        <div class="item-inner">
+                            <div class="item-text text_row_4 row address">
+                                {{@global.LANGUAGE.COM_MSG08}}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <!-- <div class="item-media"><i class="f7-icons icon-status-acc"></i></div> -->
+                        <div class="item-media"><i class="f7-icons icon-direction"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title row">
+                                {{#if Direction}}{{Direction}}{{else}}0{{/if}}
+                            </div>
+                        </div>
+                    </li>
+
+                    {{#if Alarms}} {{#each Alarms}}
+
+                    <li class="item-content">
+                        <div class="item-media color-red"><i class="f7-icons icon-status-alert"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{Type}}</div>
+                                <div class="item-after">{{BeginTime}}</div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    {{/each}} {{/if}}
+
+
+
+
+
+                    <!-- <li class="item-content">                  
+                     <div class="item-media color-red"><i class="f7-icons icon-status-alert"></i></div>
+                     <div class="item-inner">
+                         <div class="item-title row">
+                             <div class="col-33">{{Event1}}</div>
+                             <div class="col-66">{{Event1Time}}</div>
+                         </div>    
+                     </div>                   
+                 </li>
+                 <li class="item-content">                  
+                     <div class="item-media color-red"><i class="f7-icons icon-status-alert"></i></div>
+                     <div class="item-inner">
+                         <div class="item-title row">
+                             <div class="col-33">{{Event2}}</div>
+                             <div class="col-66">{{Event2Time}}</div>
+                         </div>    
+                     </div>                   
+                 </li>               -->
+
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
