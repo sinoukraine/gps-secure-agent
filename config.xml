@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.gpssecure.agent" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="3">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.gpssecure.agent" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="4">
 
 
     <name>GPS Secure Agent</name>

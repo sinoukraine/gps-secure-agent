@@ -2543,7 +2543,9 @@ App.onPageInit('asset.installation.notice', function(page) {
             "DealerToken": $$(page.container).find('input[name="dealerToken"]').val(),
             "VinNumber": $$(page.container).find('input[name="vinNumber"]').val(),
             "Imei": $$(page.container).find('input[name="IMEI"]').val(),
-            "Name": $$(page.container).find('input[name="registration"]').val(),
+            //"Name": $$(page.container).find('input[name="registration"]').val(),
+			"Name": $$(page.container).find('input[name="stockNumber"]').val(),
+			"Registration": $$(page.container).find('input[name="stockNumber"]').val(),
             "StockNumber": $$(page.container).find('input[name="stockNumber"]').val(),
             "Lot": $$(page.container).find('select[name="lot"]').val(),
             "AssetType": $$(page.container).find('select[name="assetType"]').val(),
@@ -2556,7 +2558,7 @@ App.onPageInit('asset.installation.notice', function(page) {
             "InstallLocation": $$(page.container).find('input[name="installNotice"]').val(),
             "Notes": $$(page.container).find('textarea[name="Notes"]').val(),
 			"AssetCondition": $$(page.container).find('select[name="assetCondition"]').val(),
-			"InstallerCode ": $$(page.container).find('select[name="installerCode"]').val(),
+			"InstallerCode": $$(page.container).find('select[name="installerCode"]').val(),
 			"Icon": TargetAsset.ASSET_IMG,
         };
         if (fitmentOptSelect.val()) {
@@ -2673,7 +2675,7 @@ function setDefaultData(data) {
 
         if (deviceType && deviceType != 'NONE') {			
 			getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
-            getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Loc8" });
+            getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Track" });
         } else {
             console.log('device type');
         }
@@ -2756,7 +2758,7 @@ function setSolutionType(solutions) {
     if (solutions) {
         let optionsHTML = '';
         $.each(solutions, function(key, val) {
-            if (val.Code == 'Loc8') {
+            if (val.Code == 'Track') {
                 optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
             }
         });
@@ -2775,7 +2777,9 @@ function setServicePlan(service) {
 
         let optionsHTML = '';
         $.each(service, function(key, val) {
-            optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
+            if (val.Code == '33ENPEYR38SRC') {
+				optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
+			}
         });
         serviceSelect.html(optionsHTML);
     }
@@ -2897,7 +2901,7 @@ function loadInstallNotice() {
 							AssetImg: AssetImg,						
 							stockNumber: asset.StockNumber,		
 							vinNumber: asset.Describe7,
-							registration: asset.Name,
+							//registration: asset.Name,
 							installNotice: asset.InstallPosition,
 						}
 					});
