@@ -197,7 +197,7 @@ window.LanguagePackages = {
         "ASSET_INSTALLATION_MSG01": "Vin",
         "ASSET_INSTALLATION_MSG02": "IMEI",
         "ASSET_INSTALLATION_MSG03": "Asset Name / Registration",
-        "ASSET_INSTALLATION_MSG04": "Stock Number",
+        "ASSET_INSTALLATION_MSG04": "Stock Number / Asset Name",
         "ASSET_INSTALLATION_MSG05": "Dealer Group",
         "ASSET_INSTALLATION_MSG06": "Asset Type",
         "ASSET_INSTALLATION_MSG07": "Make",
@@ -217,6 +217,7 @@ window.LanguagePackages = {
         "ASSET_INSTALLATION_MSG21": "New",
         "ASSET_INSTALLATION_MSG22": "Used",
         "ASSET_INSTALLATION_MSG23": "Other",
+
 
 
 
