@@ -2757,7 +2757,6 @@ function setAssetType(assetType) {
         });
         assetTypeSelect.html(optionsHTML);
     }
-
 }
 
 // устанавливаем список инсталлеров с текущим id
