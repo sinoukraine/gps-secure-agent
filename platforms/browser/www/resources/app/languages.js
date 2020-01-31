@@ -193,6 +193,13 @@ window.LanguagePackages = {
         "ASSET_SETTINGS_MSG56": "Custom",
         "ASSET_SETTINGS_MSG57": "Fitment Option Custom",
         "ASSET_SETTINGS_MSG58": "Stock Number",
+        "ASSET_SETTINGS_MSG59": "Dealer Group",
+        "ASSET_SETTINGS_MSG60": "Installer ID",
+        "ASSET_SETTINGS_MSG61": "Asset Condition",
+        "ASSET_SETTINGS_MSG62": "Asset Type",
+        "ASSET_SETTINGS_MSG63": "New",
+        "ASSET_SETTINGS_MSG64": "Used",
+        "ASSET_SETTINGS_MSG65": "Other",
 
         "ASSET_INSTALLATION_MSG01": "Vin",
         "ASSET_INSTALLATION_MSG02": "IMEI",

@@ -229,7 +229,7 @@ var virtualCommandsHistoryList = null;
 var App = new Framework7({
 	dialog: {
 		// set default title for all dialog shortcuts
-		title: 'GPS Secure Agent',
+		title: 'Quiktrak Secure Agent',
 		// change default "OK" button text
 		buttonOk: 'Done',
 	},
@@ -239,7 +239,7 @@ var App = new Framework7({
     //pushState: true,       
     allowDuplicateUrls: true,
     sortable: false,
-    modalTitle: 'GPS Secure Agent',
+    modalTitle: 'Quiktrak Secure Agent',
     precompileTemplates: true,
     template7Pages: true,
     tapHold: false, //enable tap hold events
@@ -386,7 +386,7 @@ var virtualAssetList = App.virtualList('.assetList', {
     renderItem: function(index, item) { 
 		
 		if(index == 0){
-			App.confirm('Go to Install Notice page for Asset IMEI:' + item.IMEI + '?', 'GPS Secure Agent', callbackOk,  callbackCancel);
+			App.confirm('Go to Install Notice page for Asset IMEI:' + item.IMEI + '?', 'Quiktrak Secure Agent', callbackOk,  callbackCancel);
 			
 			function callbackOk(){
 				var parrent = $$('.assetList .item-inner').closest('.item-content');
@@ -2112,7 +2112,7 @@ function loadRechargeCreditPage() {
         url: 'resources/templates/user.recharge.credit.html',
         context: {
             userCode: MinorToken,
-            dealerNumber: 21, // 2 - means GPS Secure Agent
+            dealerNumber: 21, // 2 - means Quiktrak Secure Agent
             other: 'GPS-Secure-Agent-app',
             button100: buttons.button100,
             button500: buttons.button500,
@@ -2926,7 +2926,12 @@ function loadPageSettings() {
                         FitmentOpt: asset.FitmentOpt,
                         FitmentOptCustom: asset.Describe6,
                         AssetImg: AssetImg,
-                        StockNumber: asset.StockNumber
+                        StockNumber: asset.StockNumber,
+                        //DealerGroup: asset.StockNumber,
+                        //InstallerId: asset.StockNumber,
+                        //AssetCondition: asset.StockNumber,
+                        //AssetType: asset.StockNumber,
+						
                     }
                 });
             } else {
@@ -3536,7 +3541,7 @@ function requestCommandHistory(params) {
         if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
         App.showProgressbar(container);
         JSON1.requestPost(API_URL.URL_GET_COMMAND_HISTORY, data, function(result) {
-               
+               console.log(result);
                 if (result.MajorCode == '000') {
                     if (result.Data && result.Data.length > 0 && virtualCommandsHistoryList) {
                         //if ( virtualCommandsHistoryList.items.length > 0) {

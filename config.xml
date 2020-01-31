@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.gpssecure.agent" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="6" ios-CFBundleVersion="4">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.gpssecure.agent" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="8" ios-CFBundleVersion="4">
 
-    <name>GPS Secure Agent</name>
+    <name>Quiktrak Secure Agent</name>
 	
     <description>
-        GPS Secure Agent
+        Quiktrak Secure Agent
     </description>
     <author email="support@sinopacific.co" href="http://sinopacific.co">
         Sinopacific Co Limited
@@ -48,7 +48,7 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <!-- <preference name="StatusBarBackgroundColor" value="#333" /> -->
     <preference name="StatusBarStyle" value="blacktranslucent" />
-    <preference name="phonegap-version" value="cli-7.1.0" />
+    <preference name="phonegap-version" value="cli-9.0.0" />
     <plugin name="cordova-plugin-statusbar" source="npm" spec="2.1.3" />
     <!-- <plugin name="phonegap-plugin-barcodescanner" source="npm" spec="8.0.1" /> -->                 <!--  can't build apk --> 
      <!-- <plugin name="cordova-plugin-barcodescanner" source="npm" spec="0.7.4"/> -->                  <!--  working , landscape orientation --> 
