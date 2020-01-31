@@ -1492,6 +1492,10 @@ App.onPageInit('asset.settings', function(page) {
             "RemoteImmobilise": fitmentOptSelectedArr.toString(),
             "Photo": TargetAsset.ASSET_IMG,
             "StockNumber": $$(page.container).find('input[name="StockNumber"]').val(),
+            "Lot": $$(page.container).find('select[name="Lot"]').val(),
+            "InstallerCode": $$(page.container).find('select[name="InstallerCode"]').val(),
+            "AssetCondition": $$(page.container).find('select[name="AssetCondition"]').val(),
+            "AssetType": $$(page.container).find('select[name="AssetType"]').val(),
 			//"Icon": TargetAsset.ASSET_IMG,
 
         };
@@ -2481,6 +2485,7 @@ App.onPageInit('asset.installation.notice', function(page) {
                     ProductCode: $$(page.container).find('[name="deviceType"]').val(),
                     IMEI: $$(page.container).find('[name="IMEI"]').val(),
                     DealerToken: $$(page.container).find('[name="dealerToken"]').val(),
+					
                 });
             } else {
                 console.log('no found productcode or IMEI or dealertoken');
@@ -2578,7 +2583,8 @@ function getDefaultParams(imei) {
                     // });
                 } else {
                     if (result.Data.DEALER_TOKEN !== 'NONE' && result.Data.DEVICETYPE) {
-                        setDefaultData(result.Data);
+                        console.log(result.Data);
+						setDefaultData(result.Data);
                     } else {
                         console.log('no dealer token or device type');
                     }
@@ -2595,11 +2601,10 @@ function getDefaultParams(imei) {
 }
 
 
-
+// передаем инфу на ssp метод, достаем инфу (солюшен, сервис)
 
 // передаем инфу на ssp метод, достаем инфу (солюшен, сервис)
 function setDefaultData(data) {
-
     if (data) {
         var deviceType = data.DEVICETYPE;
         var IMEI = $$('[name="IMEI"]').val();
@@ -2611,7 +2616,7 @@ function setDefaultData(data) {
 		getUserListWithCurrent(dealerToken);
 		
         if (deviceType && deviceType != 'NONE') {
-			getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
+			//getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
             getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Track" });
         } else {
             console.log('device type');
@@ -2656,8 +2661,39 @@ function getAssetInfo(data) {
 }
 
 // достаем инфу (солюшен, сервис)
+function getAdditionalAssetSettingsData(data) {
+    JSON1.requestPost(API_URL.URL_SSP, data,
+        function(result) {
+            if (result.MajorCode == '000') {
+                if (result.Data) {
+					console.log(result.Data);
+                    //if (data.ProductCode) {
+                        setSettingsAssetType(result.Data.AssetTypes, data.AssetType);
+                        //setSettingsAssetConditional(result.Data.AssetConditional, data.AssetConditional);
+                        setSettingsLot(result.Data.AssetGroups, data.Lot);
+                        //setSettingsInstallerCode(result.Data.InstallerCode, data.InstallerCode);
+						
+                    //} else {
+                        
+                    //}
+                } else {
+                    //App.alert('There is no Service Plans for this IMEI');
+                }
+
+            }
+        },
+        function() {
+            App.hidePreloader();
+			console.log('err');
+            // App.alert(LANGUAGE.COM_MSG02);
+        }		
+		
+    );
+}
+
+// достаем инфу (солюшен, сервис)
 function getAdditionalData(data) {
-    // console.log(data);
+     //console.log(data);
     JSON1.requestPost(API_URL.URL_SSP, data,
         function(result) {
             if (result.MajorCode == '000') {
@@ -2689,6 +2725,23 @@ function getAdditionalData(data) {
     );
 }
 
+// записываем лот
+function setSettingsLot(data, selectedValue) {
+    let lotSelect = $$('[name="Lot"]');
+
+    if (data) {
+        let optionsHTML = '';
+        $.each(data, function(key, val) {
+			if(val.Code==selectedValue ){
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.Name + '</option>';
+        });
+        lotSelect.html(optionsHTML);
+    }
+}
 
 // записываем лот
 function setLot(data) {
@@ -2697,6 +2750,11 @@ function setLot(data) {
     if (data) {
         let optionsHTML = '';
         $.each(data, function(key, val) {
+			/*if(val.Code==selectedValue ){
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}*/
             optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
         });
         lotSelect.html(optionsHTML);
@@ -2741,6 +2799,27 @@ function setServicePlan(service) {
 }
 
 // записываем assetTypes
+function setSettingsAssetType(assetType, selectedValue) {
+    let assetTypeSelect = $$('[name="AssetType"]');
+	
+    if (assetType) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(assetType, function(key, val) {
+			if(val==selectedValue ){
+				isSelected = 'selected';
+			}else if(val=="Car"){				
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val + '" ' + isSelected + '>' + val + '</option>';
+        });
+        assetTypeSelect.html(optionsHTML);
+    }
+}
+
+// записываем assetTypes
 function setAssetType(assetType) {
     let assetTypeSelect = $$('[name="assetType"]');
 	
@@ -2748,11 +2827,18 @@ function setAssetType(assetType) {
         let optionsHTML = '';
 		let isSelected = '';
         $.each(assetType, function(key, val) {
-			if(val=="Car"){
+			if(val=="Car"){				
 				isSelected = 'selected';
 			}else{
 				isSelected = '';
 			}
+			/*if(val==selectedValue ){
+				isSelected = 'selected';
+			}else if(val=="Car"){				
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}*/
             optionsHTML += '<option value="' + val + '" ' + isSelected + '>' + val + '</option>';
         });
         assetTypeSelect.html(optionsHTML);
@@ -2823,9 +2909,7 @@ function loadInstallNotice() {
                         AssetImg = 'http://upload.quiktrak.co/Attachment/images/' + asset.Icon + '?' + new Date().getTime();
                     }
                 }
-
                 getDefaultParams(asset.IMEI);
-				console.log('^^',asset,'^^');
 
                 mainView.router.load({
                     url: 'resources/templates/asset.installation.notice.html',
@@ -2887,7 +2971,6 @@ function loadPageSettings() {
 
     App.showPreloader();
     JSON1.requestPost(API_URL.URL_GET_DEVICE_DETAIL, data, function(result) {
-
             if (result.MajorCode == '000') {
                 var asset = getAssetParametersName(result.Data);
                 var AssetImg = 'resources/images/photo-defaut.svg';
@@ -2899,14 +2982,9 @@ function loadPageSettings() {
                     }
                 }
 
-
                 mainView.router.load({
                     url: 'resources/templates/asset.settings.html',
                     context: {
-                        /*IMEI: '<span>'+LANGUAGE.HOME_MSG00+'</span>: '+TargetAsset.IMEI,
-                        IMSI: '<span>'+LANGUAGE.HOME_MSG01+'</span>: '+TargetAsset.IMSI,
-                        Type: '<span>'+LANGUAGE.HOME_MSG06+'</span>: '+TargetAsset.Type,
-                        Provider: '<span>'+LANGUAGE.ASSET_SETTINGS_MSG06+'</span>: '+getUserinfo().customerName,*/
                         IMEI: TargetAsset.IMEI,
                         IMSI: TargetAsset.IMSI,
                         Type: TargetAsset.Type,
@@ -2927,13 +3005,28 @@ function loadPageSettings() {
                         FitmentOptCustom: asset.Describe6,
                         AssetImg: AssetImg,
                         StockNumber: asset.StockNumber,
-                        //DealerGroup: asset.StockNumber,
-                        //InstallerId: asset.StockNumber,
-                        //AssetCondition: asset.StockNumber,
-                        //AssetType: asset.StockNumber,
+                        Lot: asset.Lot,
+                        InstallerCode: asset.InstallerCode,
+                        AssetCondition: asset.AssetCondition,
+                        AssetType: asset.AssetType,
 						
                     }
                 });
+				
+				let IMEI = TargetAsset.IMEI; 				
+				let Lot = asset.Lot;				
+				let InstallerCode = asset.InstallerCode;					
+				let AssetType = asset.AssetType;					
+				let AssetCondition = asset.AssetCondition;	
+				
+				getAdditionalAssetSettingsData({
+					IMEI,
+					Lot,
+					InstallerCode,
+					AssetCondition,
+					AssetType,
+				});
+				
             } else {
                 App.alert(LANGUAGE.PROMPT_MSG013);
             }
@@ -4073,6 +4166,10 @@ function getAssetParametersName(data) {
         FitmentOpt: data[index++],
         Describe6: data[index++],
         StockNumber: data[index++],
+        AssetType: data[index++],
+        Lot: data[index++],
+        AssetCondition: data[index++],
+        InstallerCode: data[index++],
     };
 
     return device;
