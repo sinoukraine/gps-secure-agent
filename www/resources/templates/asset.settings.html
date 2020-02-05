@@ -42,7 +42,7 @@
                             <div class="item-title">
                                 {{@global.LANGUAGE.HOME_MSG00}}:
                             </div>
-                            <div> {{IMEI}}</div>
+                            <div class="imei-num">{{IMEI}}</div>
                         </div>
                     </div>
                 </li>
@@ -173,10 +173,7 @@
                         <div class="item-title label">{{@global.LANGUAGE.ASSET_SETTINGS_MSG61}}</div><!--<span class="color-red">*</span>-->
                         <div class="item-input dflex">
                             <select name="AssetCondition" data-set="{{AssetCondition}}">  
-                                <option value="0">Select Asset Condition</option>  
-								<option value="new">{{@global.LANGUAGE.ASSET_SETTINGS_MSG63}}</option>
-                                <option value="used">{{@global.LANGUAGE.ASSET_SETTINGS_MSG64}}</option>
-                                <option value="other">{{@global.LANGUAGE.ASSET_SETTINGS_MSG65}}</option>                      
+                                <option value="0">Select Asset Condition</option>              
                             </select>
                             <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
                         </div>

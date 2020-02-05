@@ -874,7 +874,7 @@ App.onPageInit('user.profile', function(page) {
 
         App.showPreloader();
         JSON1.request(url, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
 
                     userInfo.firstName = result.Data.User.FirstName;
@@ -916,10 +916,10 @@ App.onPageInit('user.password', function(page) {
                     encodeURIComponent(password.old),
                     encodeURIComponent(password.new)
                 );
-                console.log(url);
+               
                 App.showPreloader();
                 JSON1.request(url, function(result) {
-                        console.log(result);
+                        
                         if (result.MajorCode == '000') {
                             App.alert(LANGUAGE.PROMPT_MSG003, function() {
                                 logout();
@@ -1522,10 +1522,10 @@ App.onPageInit('asset.settings', function(page) {
         /*if (fitmentOptSelectedArr.indexOf('D') != -1) {
             data.Attr6 = $$(page.container).find('input[name="FitmentOptCustom"]').val();
         }*/
-        console.log(data);
+      
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_EDIT_DEVICE, data, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
                     mainView.router.back();
                 } else {
@@ -1564,8 +1564,7 @@ App.onPageInit('client.details', function(page) {
 
 
         JSON1.requestPost(API_URL.URL_SENT_NOTIFY, data, function(result) {
-                console.log(result);
-                console.log(data);
+                
                 if (result.MajorCode == '000') {
 
                     loadPageVerification(result.Data);
@@ -1661,7 +1660,7 @@ function loadPageStatusNew(data) {
 
 
     let statusObj = JSON.parse(data.Status);
-    console.log(data);
+ 
 
     // TargetAsset.IMEI = data.Imei;
     mainView.router.load({
@@ -1705,7 +1704,7 @@ function requestPositionVirify() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_LIVE_POSITION, data, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
                     var props = result.Data;
                     props.Imei = TargetAsset.IMEI;
@@ -2055,7 +2054,7 @@ function hideKeyboard() {
 
 function getCreditBalance(vsMsg) {
     var userInfo = getUserinfo();
-    console.log(userInfo);
+    
     var data = {
         "MinorToken": userInfo.userCode
     };
@@ -2063,7 +2062,7 @@ function getCreditBalance(vsMsg) {
         App.showPreloader();
     }
     JSON1.requestPost(API_URL.URL_GET_CREDIT, data, function(result) {
-            console.log(result);
+            
             if (result.MajorCode == '000') {
                 updateUserCrefits(result.Data.Credit);
                 userInfo.credit = result.Data.Credit;
@@ -2350,7 +2349,7 @@ function loadPageActivation(planCode) {
 function checkVinNumber(params){
         if (params && params.VIN) {
             var vinLength = params.VIN.length;
-            console.log(vinLength);
+           
             if (vinLength == 18){
                 params.VIN = params.VIN.slice(1);
                 getVehicleDetailsByVin(params);
@@ -2394,9 +2393,14 @@ function checkVinNumber(params){
         }
     }
 
-App.onPageAfterAnimation('asset.installation.notice', function(page){
-    getDefaultParams($$(page.container).find('[name="IMEI"]').val());
+App.onPageAfterAnimation('asset.settings', function(page){
+    //getSettingsDefaultParams($$(page.container).find('.imei-num').html());
 });
+
+App.onPageAfterAnimation('asset.installation.notice', function(page){
+    //getDefaultParams($$(page.container).find('[name="IMEI"]').val());
+});
+
 
 // installation notice page
 App.onPageInit('asset.installation.notice', function(page) {
@@ -2580,7 +2584,7 @@ App.onPageInit('asset.installation.notice', function(page) {
         if (Data.DealerToken && Data.Name && Data.VinNumber && Data.StockNumber  && Data.Imei) {
        	App.showPreloader();
             JSON1.requestPost(API_URL.URL_INSTALLATION_NOTICE, Data, function(result) {
-					console.log(result);
+					
                     if (result.MajorCode == '000') {
                         mainView.router.back();
                     } else {
@@ -2615,14 +2619,14 @@ function selectChange() {
 }
 
 // узнаем информацио о пользователе 
-function getDefaultParams(imei) {
+function getSettingsDefaultParams(imei, code) {
     let data = {
         'IMEI': imei,
+		'InstallerCode': code
     };
     App.showPreloader();
     JSON1.requestPost(API_URL.URL_VERIFY, data,
         function(result) {
-            console.log(result);
             if (result.MajorCode == '000') {
                 // console.log(result.Data.IMEI);
                 if (result.Data.IMEI == 'ACTIVATED') {
@@ -2634,7 +2638,9 @@ function getDefaultParams(imei) {
                     // });
                 } else {
                     if (result.Data.DEALER_TOKEN !== 'NONE' && result.Data.DEVICETYPE) {
-                        setDefaultData(result.Data);
+                        setSettingsDefaultData(result.Data, data.InstallerCode);
+						//getSettingsUserListWithCurrent(result.Data.DEALER_TOKEN)
+						//getSettingsUserListWithCurrent(result.Data.DEALER_TOKEN, data.InstallerCode)
                     } else {
                         console.log('no dealer token or device type');
                     }
@@ -2650,12 +2656,86 @@ function getDefaultParams(imei) {
 
 }
 
+// узнаем информацио о пользователе 
+function getDefaultParams(imei, code) {
+    let data = {
+        'IMEI': imei,
+		'InstallerCode': code
+    };
+    App.showPreloader();
+    JSON1.requestPost(API_URL.URL_VERIFY, data,
+        function(result) {
+            if (result.MajorCode == '000') {
+                // console.log(result.Data.IMEI);
+                if (result.Data.IMEI == 'ACTIVATED') {
+                    App.alert('Your device is already activated');
+                    // mainView.router.back();
+                    // mainView.router.back({
+                    //     url: '/index.html/',
+                    //     force: true,
+                    // });
+                } else {
+                    if (result.Data.DEALER_TOKEN !== 'NONE' && result.Data.DEVICETYPE) {
+                        setDefaultData(result.Data, data.InstallerCode);
+						//getSettingsUserListWithCurrent(result.Data.DEALER_TOKEN)
+						//getUserListWithCurrent(result.Data.DEALER_TOKEN, data.InstallerCode)
+                    } else {
+                        console.log('no dealer token or device type');
+                    }
+                }
+            }
+            App.hidePreloader();
+        },
+        function() {
+            App.hidePreloader();
+            App.alert(LANGUAGE.COM_MSG02);
+        }
+    );
+
+}
+
+// узнаем информацио о пользователе 
+/*function getDefaultParams(imei) {
+    let data = {
+        'IMEI': imei,
+    };
+    App.showPreloader();
+    JSON1.requestPost(API_URL.URL_VERIFY, data,
+        function(result) {
+            
+            if (result.MajorCode == '000') {
+                // console.log(result.Data.IMEI);
+                if (result.Data.IMEI == 'ACTIVATED') {
+                    App.alert('Your device is already activated');
+                    // mainView.router.back();
+                    // mainView.router.back({
+                    //     url: '/index.html/',
+                    //     force: true,
+                    // });
+                } else {
+                    if (result.Data.DEALER_TOKEN !== 'NONE' && result.Data.DEVICETYPE) {
+                        //setDefaultData(result.Data);
+                    } else {
+                        console.log('no dealer token or device type');
+                    }
+                }
+            }
+            App.hidePreloader();
+        },
+        function() {
+            App.hidePreloader();
+            App.alert(LANGUAGE.COM_MSG02);
+        }
+    );
+
+}*/
+
 // достаем инфу выбранного ассета
 function getAssetInfo(data) {
     //console.log(data);
     JSON1.requestPost(API_URL.URL_GET_ASSET_INFO, data,
         function(result) {
-            console.log(result);
+           
         },
         function() {
         }
@@ -2664,7 +2744,29 @@ function getAssetInfo(data) {
 
 
 // передаем инфу на ssp метод, достаем инфу (солюшен, сервис)
-function setDefaultData(data) {
+function setDefaultData(data, code) {
+ 
+    if (data) {
+        var deviceType = data.DEVICETYPE;
+        var IMEI = $$('[name="IMEI"]').val();
+        var dealerToken = data.DEALER_TOKEN;
+
+        $$('[name="dealerToken"]').val(data.DEALER_TOKEN);
+        $$('[name="deviceType"]').val(data.DEVICETYPE);
+
+		
+		getUserListWithCurrent(dealerToken, code);
+
+        if (deviceType && deviceType != 'NONE') {			
+			//getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
+            //getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Track" });
+        } else {
+            console.log('device type');
+        }
+    }
+}
+
+function setSettingsDefaultData(data, code) {
 
     if (data) {
         var deviceType = data.DEVICETYPE;
@@ -2675,11 +2777,11 @@ function setDefaultData(data) {
         $$('[name="deviceType"]').val(data.DEVICETYPE);
 
 		
-		getUserListWithCurrent(dealerToken);
+		getSettingsUserListWithCurrent(dealerToken, code);
 
         if (deviceType && deviceType != 'NONE') {			
-			getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
-            getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Track" });
+			//getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
+            //getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Track" });
         } else {
             console.log('device type');
         }
@@ -2687,7 +2789,7 @@ function setDefaultData(data) {
 }
 
 //select user list with current user code
-function getUserListWithCurrent(data) {
+function getSettingsUserListWithCurrent(data, code) {
 	
 	var url = API_URL.URL_USER_LIST_BY_ROLES.format(data, 4);
 
@@ -2695,7 +2797,32 @@ function getUserListWithCurrent(data) {
         function(result) {
             if (result.MajorCode == '000') {
                 if (result.Data ) {//&& result.Data.Solutions && result.Data.Solutions.length
-                    setUserListWithCurrent(result.Data, data);
+                    //setSettingsUserListWithCurrent(result.Data, data);
+					setSettingsUserListWithCurrent(result.Data, code);
+                } else {
+                    App.alert('There is no Installer Id for this IMEI');
+                }
+
+            }
+        },
+        function() {console.log('er');
+            App.hidePreloader();
+            // App.alert(LANGUAGE.COM_MSG02);
+        }
+    );
+}
+
+//select user list with current user code
+function getUserListWithCurrent(data, code) {
+	
+	var url = API_URL.URL_USER_LIST_BY_ROLES.format(data, 4);
+
+    JSON1.request(url,     
+        function(result) {
+            if (result.MajorCode == '000') {
+                if (result.Data ) {//&& result.Data.Solutions && result.Data.Solutions.length
+                    //setUserListWithCurrent(result.Data, data);
+					setUserListWithCurrent(result.Data, code);
                 } else {
                     App.alert('There is no Installer Id for this IMEI');
                 }
@@ -2716,13 +2843,12 @@ function getAdditionalAssetSettingsData(data) {
         function(result) {
             if (result.MajorCode == '000') {
                 if (result.Data) {
-					console.log(result.Data);
                     //if (data.ProductCode) {
                         setSettingsAssetType(result.Data.AssetTypes, data.AssetType);
-                        //setSettingsAssetConditional(result.Data.AssetConditional, data.AssetConditional);
+                        setSettingsAssetCondition(data.AssetCondition);
                         setSettingsLot(result.Data.AssetGroups, data.Lot);
                         //setSettingsInstallerCode(result.Data.InstallerCode, data.InstallerCode);
-						
+						getSettingsDefaultParams(data.IMEI, data.InstallerCode);
                     //} else {
                         
                     //}
@@ -2743,24 +2869,28 @@ function getAdditionalAssetSettingsData(data) {
 
 
 // достаем инфу (солюшен, сервис)
-function getAdditionalData(data) {
-    // console.log(data);
+function getAdditionalData(data, ad = null) {
     JSON1.requestPost(API_URL.URL_SSP, data,
         function(result) {
-            console.log(result);
             if (result.MajorCode == '000') {
                 if (result.Data && result.Data.ServiceProfiles && result.Data.ServiceProfiles.length && result.Data.Solutions && result.Data.Solutions.length) {
-                    if (data.ProductCode) {
+                    //if (data.ProductCode) {
                         // && data.SolutionCode
                         setServicePlan(result.Data.ServiceProfiles);
                         setSolutionType(result.Data.Solutions);
-                        setAssetType(result.Data.AssetTypes);
-                        setLot(result.Data.AssetGroups);
-                    } else {
+                    
+						if(ad){
+							setAssetType(result.Data.AssetTypes, ad.assetType);
+							setLot(result.Data.AssetGroups, ad.lot);
+							setAssetCondition(ad.assetCondition);
+							//setInstallerCode(ad.installerCode);
+							getDefaultParams(data.IMEI, ad.installerCode);
+						}
+                    //} else {
                         // setSolutionType(result.Data.Solutions);
                         // setAssetType(result.Data.AssetTypes);
                         // setLot(result.Data.AssetGroups);
-                    }
+                    //}
                 } else {
                     App.alert('There is no Service Plans for this IMEI');
                 }
@@ -2794,17 +2924,17 @@ function setSettingsLot(data, selectedValue) {
 }
 
 // записываем лот
-function setLot(data) {
+function setLot(data, selectedValue) {
     let lotSelect = $$('[name="lot"]');
 
     if (data) {
         let optionsHTML = '';
         $.each(data, function(key, val) {
-			/*if(val.Code==selectedValue ){
+			if(val.Code==selectedValue ){
 				isSelected = 'selected';
 			}else{
 				isSelected = '';
-			}*/
+			}
             optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
         });
         lotSelect.html(optionsHTML);
@@ -2846,10 +2976,9 @@ function setServicePlan(service) {
     }
 }
 
-
 // устанавливаем список инсталлеров с текущим id
-function setUserListWithCurrent(userList, currentId) {
-    let installerCodeSelect = $$('[name="installerCode"]');
+function setSettingsUserListWithCurrent(userList, currentId) {
+    let installerCodeSelect = $$('[name="InstallerCode"]');
 	
 	var userInfo = getUserinfo();    
     
@@ -2857,7 +2986,7 @@ function setUserListWithCurrent(userList, currentId) {
         let optionsHTML = '';
 		let isSelected = '';
         $.each(userList, function(key, val) {
-			if(userInfo.userCode == val.Code){
+			if(val.Code==currentId ){ //console.log(currentId);
 				isSelected = 'selected';
 			}else{
 				isSelected = '';
@@ -2870,6 +2999,73 @@ function setUserListWithCurrent(userList, currentId) {
 
 }
 
+
+// устанавливаем список инсталлеров с текущим id
+function setUserListWithCurrent(userList, currentId) {
+    let installerCodeSelect = $$('[name="installerCode"]');
+	var userInfo = getUserinfo();    
+	//console.log(userList,currentId,userInfo.userCode)
+   
+	if (userList) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(userList, function(key, val) {
+			if(val.Code==currentId ){ //console.log(currentId);
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
+        });
+		//optionsHTML = '<option value="0" ">No Installer Id is selected</option>' + optionsHTML;
+        installerCodeSelect.html(optionsHTML);
+    }
+
+}
+
+function setAssetCondition(selectedValue) {
+    let assetConditionSelect = $$('[name="assetCondition"]');
+	let assetCondition = [
+		LANGUAGE.ASSET_INSTALLATION_MSG21.toString(),
+		LANGUAGE.ASSET_INSTALLATION_MSG22.toString(),
+		LANGUAGE.ASSET_INSTALLATION_MSG23.toString()
+	];
+    if (assetConditionSelect) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(assetCondition, function(key, val) {
+			if(val.toLowerCase()==selectedValue ){
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.toLowerCase() + '" ' + isSelected + '>' + val + '</option>';
+        });
+        assetConditionSelect.html(optionsHTML);
+    }
+}
+
+function setSettingsAssetCondition(selectedValue) {
+    let assetConditionSelect = $$('[name="AssetCondition"]');
+	let assetCondition = [
+		LANGUAGE.ASSET_SETTINGS_MSG63.toString(),
+		LANGUAGE.ASSET_SETTINGS_MSG64.toString(),
+		LANGUAGE.ASSET_SETTINGS_MSG65.toString()
+	];
+    if (assetConditionSelect) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(assetCondition, function(key, val) {
+			if(val.toLowerCase()==selectedValue ){
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.toLowerCase() + '" ' + isSelected + '>' + val + '</option>';
+        });
+        assetConditionSelect.html(optionsHTML);
+    }
+}
 
 
 // записываем assetTypes
@@ -2894,14 +3090,16 @@ function setSettingsAssetType(assetType, selectedValue) {
 }
 
 // записываем assetTypes
-function setAssetType(assetType) {
+function setAssetType(assetType, selectedValue) {
     let assetTypeSelect = $$('[name="assetType"]');
 	
     if (assetType) {
         let optionsHTML = '';
 		let isSelected = '';
         $.each(assetType, function(key, val) {
-			if(val=="Car"){				
+			if(val==selectedValue ){
+				isSelected = 'selected';
+			}else if(val=="Car"){				
 				isSelected = 'selected';
 			}else{
 				isSelected = '';
@@ -2991,10 +3189,33 @@ function loadInstallNotice() {
 							vinNumber: asset.Describe7,
 							//registration: asset.Name,
 							installNotice: asset.InstallPosition,
+							lot: asset.Lot,
+							assetType: asset.AssetType,
+							assetCondition: asset.AssetCondition,
 						}
 					});
+					
+				let imei = TargetAsset.IMEI;
+				let lot = asset.Lot;				
+				let assetType = asset.AssetType;					
+				let assetCondition = asset.AssetCondition;			
+				let installerCode = asset.InstallerCode;	
+					
+				getAdditionalData({ 
+					//ProductCode: deviceType, 
+					IMEI: imei, 
+					//DealerToken: dealerToken, 
+					SolutionCode: "Track" 
+				}, {
+					lot,
+					assetType,
+					assetCondition,
+					installerCode
+				});
 				
-                				 
+				//setServicePlan(result.Data.ServiceProfiles);
+                //setSolutionType(result.Data.Solutions);
+                 				 
 				
             } else {
                 App.alert(LANGUAGE.PROMPT_MSG013);
@@ -3039,7 +3260,6 @@ function loadPageSettings() {
                         AssetImg = 'http://upload.quiktrak.co/Attachment/images/' + asset.Icon + '?' + new Date().getTime();
                     }
                 }
-//alert('param');
 
                 mainView.router.load({
                     url: 'resources/templates/asset.settings.html?v=1.1',
@@ -3218,7 +3438,6 @@ function checkMapExisting() {
 
 
 function loadPageStatus(data) {
-    console.log(data);
 
     var timeCheck = data.CreateDateTime.indexOf('T');
     if (timeCheck != -1) {
@@ -3312,7 +3531,7 @@ function loadSimInfo() {
     };
     App.showPreloader();
     JSON1.requestPost(API_URL.URL_GET_SIM_INFO, data, function(result) {
-            console.log(result);
+            
             if (result.MajorCode == '000') {
                 getAdditionalSimInfo(result.Data);
             } else {
@@ -3336,7 +3555,7 @@ function getAdditionalSimInfo(params) {
     };
     /*App.showPreloader();*/
     JSON1.requestPost(API_URL.URL_GET_SIM_LIST, data, function(result) {
-            console.log(result);
+            
             if (result.MajorCode == '000') {
                 loadSimInfoPage(Object.assign(params, result.Data[0]));
             } else {
@@ -3443,7 +3662,7 @@ function requestStatus() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_STATUS, data, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3486,7 +3705,7 @@ function requestPositionProtect() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_PROTECT_POSITION, data, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3521,7 +3740,7 @@ function requestPositionLive() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_LIVE_POSITION, data, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
                     var props = result.Data;
                     props.Imei = TargetAsset.IMEI;
@@ -3565,7 +3784,7 @@ function requestVerify() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_VERIFY3, data, function(result) {
-                console.log(result);
+                
                 if (result.MajorCode == '000') {
 
 
@@ -3584,7 +3803,7 @@ function requestVerify() {
 
                 } else if (result.MajorCode == '100') {
                     var msg = LANGUAGE.ASSET_VIRIFICATION_MSG12;
-                    console.log(result.Data);
+                    
                     if (result.Data) {
                         switch (result.Data) {
                             case 'OFFLINE':
@@ -3638,7 +3857,7 @@ function requestImmobilise() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_SET_IMMOBILISE, data, function(result) {
-                console.log(result);
+             
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3682,7 +3901,7 @@ function requestUnimmobilise() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_SET_UNIMMOBILISE, data, function(result) {
-                console.log(result);
+              
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3714,13 +3933,11 @@ function requestCommandHistory(params) {
             IMSI: params.IMSI,
             LastDay: params.LastDay,
         };
-        console.log(data);
-
         var container = $$('body');
         if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
         App.showProgressbar(container);
         JSON1.requestPost(API_URL.URL_GET_COMMAND_HISTORY, data, function(result) {
-                console.log(result);
+               
                 if (result.MajorCode == '000') {
                     if (result.Data && result.Data.length > 0 && virtualCommandsHistoryList) {
                         //if ( virtualCommandsHistoryList.items.length > 0) {
@@ -3768,7 +3985,6 @@ function getNewNotifications() {
                 //localStorage.notificationChecked = 1;
 
 
-                console.log(result);
 
                 if (result.MajorCode == '000') {
                     var data = result.Data;
@@ -3783,7 +3999,7 @@ function getNewNotifications() {
                         }
                     }
                 } else {
-                    console.log(result);
+                   
                 }
             },
             function() {
@@ -3836,7 +4052,7 @@ function changeAssetNotificationState(device, obj) {
     }
 
     JSON1.requestPost(API_URL.URL_CHANGE_NOTIFICATION_STATUS, data, function(result) {
-            console.log(result);
+          
             if (result.MajorCode == '000') {
                 if (device) {
                     device.data('notifications', data.State);
@@ -4531,7 +4747,7 @@ function getVehicleDetailsByVin(params) {
 
             success: function(result) {
                 App.hideProgressbar();
-                console.log(result);
+                
                 if (result) {
                     var vehicleDetailsArr = [];
 
