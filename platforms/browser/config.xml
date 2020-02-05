@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1" defaultlocale="en-US" id="com.sinopacific.gpssecure.agent" ios-CFBundleVersion="5" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="1" defaultlocale="en-US" id="com.sinopacific.gpssecure.agent" ios-CFBundleVersion="6" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>

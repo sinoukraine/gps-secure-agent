@@ -1,97 +1,103 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <!-- Required meta tags-->
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; media-src *; img-src * 'self' data:; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'" />  
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-	<!--<meta http-equiv="Content-Security-Policy" content="default-src data: gap: file:; media-src ; img-src 'self' data:; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'" />
-    --><meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Color theme for statusbar -->
     <!-- <meta name="theme-color" content="#2196f3"> -->
     <!-- Your app title -->
     <title>Quiktrak Secure Agent</title>
-
+	
     <!-- Cropper Camer -->
-    <link rel="stylesheet" href="resources/plugins/cropper/css/cropper.min.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="resources/plugins/cropper/css/cropper.min.css" type="text/css" charset="utf-8" />
     <!-- Path to Framework7 Library CSS, Material Theme -->
-    <link rel="stylesheet" href="resources/libraries/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="resources/libraries/framework7/css/framework7.material.min.css">
     <!-- Path to Framework7 color related styles, Material Theme -->
-    <link rel="stylesheet" href="resources/libraries/framework7/css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="resources/libraries/framework7/css/framework7.material.colors.min.css">
     <!-- Icons -->
     <link rel="stylesheet" href="resources/fonts/framework7-icons.css">
     <link rel="stylesheet" href="resources/fonts/ownicons/styles.css">
-   
 
-    
+
+
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="resources/libraries/leaflet/leaflet.css">
     <link rel="stylesheet" href="resources/fonts/roboto.css">
     <link rel="stylesheet" href="resources/app/my-app.css?v=1.1.1">
 
-  </head>
-  <body class="theme-pink theme-dealer" >
-    
-    <div class="statusbar-overlay"></div>
+</head>
+
+<body class="theme-pink theme-dealer">
+
+    <script id="template_Login_Screen" type="text/template7">
+        <div class="login-screen ">
+            <div class="view">
+                <div class="page no-navbar no-toolbar no-swipeback login_page" data-page="login-screen">
+                    <div class="page-content login-screen-content pr-16 pl-16">
+                        <form action="" class="login-form">
+                            <div class="content-block no-padding">
+                                <div class="logo"><img src="resources/images/logo.png" /></div>
+                            </div>
+                            <div class="list-block login_list">
+                                <ul>
+                                    <li>
+                                        <div class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-input">
+                                                    <input type="text" placeholder="{{@global.LANGUAGE.LOGIN_MSG02}}" id="account" name="account" value="" />
+                                                    <!-- testa -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-input">
+                                                    <input type="password" placeholder="{{@global.LANGUAGE.LOGIN_MSG03}}" id="password" name="password" value="" />
+                                                    <!-- 111111 -->
+                                                    <i class="f7-icons icon-other-password-eye color-gray toggle-password"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="forget_pwd_wrapper">       
+                                     <a href="resources/templates/forgotPwd.html" class="color-white forgetPwd ">{{@global.LANGUAGE.LOGIN_MSG05}}</a>          
+                                   </li>     -->
+                                </ul>
+                            </div>
+                            <div class="content-block pl-16">
+                                <button type="submit" class="button button-big login-submit button-fill btn_login" style="" id="btnLogin">{{@global.LANGUAGE.LOGIN_MSG04}}</button>
+                            </div>
+                            <!-- <div class="content-block pl-16">
+                        <button type="button" class="button button-big button-fill" style="" id="showToken">Show Token</button>
+                    </div> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 
     <!-- First, we need to add Panel's overlay that will overlays app while panel is opened -->
     <div class="panel-overlay"></div>
 
-    <script id="template_Login_Screen" type="text/template7">
-      <div class="login-screen " >  
-        <div class="view">
-          <div class="page no-navbar no-toolbar no-swipeback login_page" data-page="login-screen">           
-            <div class="page-content login-screen-content pr-16 pl-16">
-                <form action="" class="login-form">
-                  <div class="content-block no-padding">
-                    <div class="logo"><img src="resources/images/logo.png" /></div>
-                  </div>
-                  <div class="list-block login_list">
-                    <ul>
-                      <li>
-                        <div class="item-content">          
-                          <div class="item-inner">
-                            <div class="item-input">                          
-                              <input type="text" placeholder="{{@global.LANGUAGE.LOGIN_MSG02}}" id="account" name="account" value="" /> <!-- testa -->
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="item-content">          
-                          <div class="item-inner">
-                            <div class="item-input">                          
-                              <input type="password" placeholder="{{@global.LANGUAGE.LOGIN_MSG03}}" id="password" name="password" value="" /> <!-- 111111 -->
-                              <i class="f7-icons icon-other-password-eye color-gray toggle-password"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </li> 
-                      <!-- <li class="forget_pwd_wrapper">       
-                                 <a href="resources/templates/forgotPwd.html" class="color-white forgetPwd ">{{@global.LANGUAGE.LOGIN_MSG05}}</a>          
-                               </li>     -->         
-                    </ul>
-                  </div>          
-                  <div class="content-block pl-16">
-                    <button type="submit" class="button button-big login-submit button-fill btn_login" style=""  id="btnLogin">{{@global.LANGUAGE.LOGIN_MSG04}}</button>
-                  </div>
-                </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </script>
-    
-   
- 
     <!-- Left panel -->
     <script id="template_Popover_Menu" type="text/template7">
-      <!-- Left panel -->
-        <div class="panel panel-left panel-cover">
+        <!-- Left panel -->
+        <div class="panel panel-left panel-reveal">
             <div class="menu_wrapper">
                 <div class="menu_header bg-dealer">
-              <!-- <img class="vertical-center" src="resources/images/logo.png" alt=""> -->
+                    <!-- <img class="vertical-center" src="resources/images/logo.png" alt=""> -->
                     <div class="user_photo">
-                        <div class="user_f_l color-dealer text-a-c vertical-center"><!-- UN --></div>
+                        <div class="user_f_l color-dealer text-a-c vertical-center">
+                            <!-- UN -->
+                        </div>
                     </div>
                     <div class="user_name mt-16">
                         <!-- User Name -->
@@ -104,29 +110,29 @@
                     <div class="list-group">
                         <ul>
                             <li class="item-content list-panel-all close-panel " data-page="index">
-                                <div class="item-media">                
+                                <div class="item-media">
                                     <i class="f7-icons icon-menu-home"></i>
                                 </div>
                                 <div class="item-inner">
                                     <div class="item-title">{{@global.LANGUAGE.MENU_MSG00}}</div>
                                 </div>
-                            </li> 
-                            <li class="item-content list-panel-all close-panel " data-page="user.profile" id="menuSettings" ><!---->
+                            </li>
+                            <li class="item-content list-panel-all close-panel " data-page="user.profile">
                                 <div class="item-media">
                                     <i class="f7-icons icon-menu-user-settings"></i>
                                 </div>
                                 <div class="item-inner">
                                     <div class="item-title">{{@global.LANGUAGE.MENU_MSG01}}</div>
                                 </div>
-                            </li><!--
-							<li class="item-content list-panel-all close-panel display-none" data-page="user.recharge.credit">
+                            </li>
+                            <li class="item-content list-panel-all close-panel " data-page="user.recharge.credit">
                                 <div class="item-media">
                                     <i class="f7-icons icon-other-payment"></i>
                                 </div>
                                 <div class="item-inner">
                                     <div class="item-title">{{@global.LANGUAGE.MENU_MSG03}}</div>
                                 </div>
-                            </li>-->
+                            </li>
                             <li class="item-content list-panel-all close-panel" data-page="login">
                                 <div class="item-media">
                                     <i class="f7-icons icon-menu-sign-out"></i>
@@ -135,84 +141,92 @@
                                     <div class="item-title">{{@global.LANGUAGE.MENU_MSG02}}</div>
                                 </div>
                             </li>
-                             <!-- <li class="item-content list-panel-all close-panel " data-page="user.recharge.credit">
-                                             <div class="item-media">
-                                                 <i class="f7-icons icon-other-payment"></i>
-                                             </div>
-                                             <div class="item-inner">
-                                                 <div class="item-title">{{@global.LANGUAGE.MENU_MSG03}}</div>
-                                             </div>
-                                         </li> -->                 
                         </ul>
                     </div>
-                </div><!--
+                </div>
                 <div class="menu_remainings">
                     {{@global.LANGUAGE.COM_MSG17}}: <span class="remaining_counter">---</span> {{@global.LANGUAGE.COM_MSG18}}
-                </div> -->
+                </div>
             </div>
-      </div>
+
+        </div>
     </script>
-  
+
+
+
     <!-- Views -->
     <div class="views">
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-			<!-- Pages container, because we use fixed navbar and toolbar, it has additional appropriate classes-->            
+            <!-- Pages container, because we use fixed navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-fixed">
-				<!-- Page, "data-page" contains page name -->
-                <script type="text/template7" id="template_AssetList">			
-					<!--<div class="pages navbar-through toolbar-through">-->
-					<div data-page="index" class="page page_index bg-color-page">-->
-						<!--<div data-page="index" class="page page_index bg-color-page with-subnavbar">      -->  
-						<!-- Top Navbar. In Material theme it should be inside of the page-->
-						<div class="navbar bg-dealer ">
-							<div class="navbar-inner">
-								<div class="left">
-									<a href="#" class="link icon-only open-panel "> <i class="f7-icons icon-header-menu"></i></a>
-								</div>
-								<div class="center index-title">Home</div> <!-- {{@global.LANGUAGE.MENU_MSG00}} -->
-								<div class="right"> 
-									<a href="resources/templates/notification.html" class="link notification_button " ><i class="f7-icons icon-header-notification"></i></a>
-								</div>
-								<div class="subnavbar search_tabbar">
-									<!-- Sub navbar content, for example tabs buttons -->
-									<div class="buttons-row">
-										<a href="#tab-imei" class="button tab-link active">IMEI</a> <!-- {{@global.LANGUAGE.HOME_MSG00}} -->
-										<a href="#tab-imsi" class="button tab-link">IMSI</a> <!-- {{@global.LANGUAGE.HOME_MSG01}} -->
-										<!--<a href="#tab-name" class="button tab-link">Name</a>--> <!-- {{@global.LANGUAGE.HOME_MSG02}} -->                    
-									</div>
-								</div>
-							</div>                         
-						</div> 
-                      
-                        <div class="page-content first_login">                              
-                            <form class="searchbar formSearchDevice">
-                                <div class="searchbar-input">                                    
-                                    <input type="search" placeholder="Search" name="searchInput" data-searchby="IMEI" maxlength="100" >
-                                    <!--<a href="#" class="f7-icons icon-other-delete-text-input searchbar-clear searchClear"></a>-->
-									<!--<i class="f7-icons icon-other-search-input color-red searchDevice"></i>
-                                    <i class="f7-icons icon-other-delete-text-input color-red searchClear"></i>-->
-                                    <i class="f7-icons icon-scan color-red scanBarCode"></i>
-                                     
+                <!-- Page, "data-page" contains page name -->
+                <script type="text/template7" id="template_AssetList">
+                    <div data-page="index" class="page page_index bg-color-page">
+
+                        <!-- Top Navbar. In Material theme it should be inside of the page-->
+                        <div class="navbar bg-dealer ">
+                            <div class="navbar-inner">
+                                <div class="left">
+                                    <a href="#" class="link icon-only open-panel "> <i class="f7-icons icon-header-menu"></i></a>
                                 </div>
-                                <!--<a href="#" class="searchbar-cancel">Cancel</a>  -->     
-                            </form>               
+                                <div class="left navbar_title_index">{{@global.LANGUAGE.MENU_MSG00}}</div>
+                                <div class="right">
+                                    <a href="resources/templates/notification.html" class="link notification_button "><i class="f7-icons icon-header-notification"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="toolbar tabbar search_tabbar">
+                            <!-- tabbar-scrollable -->
+                            <div class="toolbar-inner">
+                                <a href="#tab-imei" class="tab-link active">{{@global.LANGUAGE.HOME_MSG00}}</a>
+                                <a href="#tab-imsi" class="tab-link">{{@global.LANGUAGE.HOME_MSG01}}</a>
+								<span class="tab-link-highlight" style="width: 50%; transform: translate3d(0%, 0px, 0px);"></span>
+                                <!--<a href="#tab-name" class="tab-link">{{@global.LANGUAGE.HOME_MSG02}}</a>
+                                <span class="tab-link-highlight" style="width: 33.3333%; transform: translate3d(0%, 0px, 0px);"></span>-->
+                            </div>
+                        </div>
+
+                        <!-- Scrollable page content -->
+                        <div class="page-content first_login">
+                            <!-- <div class="list-block no-hairlines virtual-list" >
                             
+                            </div> -->
+                            <form class="searchbar formSearchDevice">
+                                <div class="searchbar-input">
+                                    <input type="text" placeholder="Search" name="searchInput" data-searchby="IMEI" maxlength="100">
+                                    <i class="f7-icons icon-other-search-input color-red searchDevice"></i>
+                                    <i class="f7-icons icon-other-delete-text-input color-red searchClear"></i>
+                                    <i class="f7-icons icon-scan color-red scanBarCode"></i>
+                                    <!-- <a href="#" class="searchbar-clear"></a> -->
+
+                                </div>
+                                <!-- <a href="#" class="searchbar-cancel">Cancel</a> -->
+                            </form>
+
                             <div class="tabs">
-                                <div id="tab-imei" class="tab active">                                    
+                                <div id="tab-imei" class="tab active">
+                                    <div class="content-block">
+                                    </div>
                                 </div>
-                                <div id="tab-imsi" class="tab">                                    
+                                <div id="tab-imsi" class="tab">
+                                    <div class="content-block">
+                                    </div>
                                 </div>
-                                <!--<div id="tab-name" class="tab">                                
+                                <!--<div id="tab-name" class="tab">
+                                    <div class="content-block">
+                                    </div>
                                 </div>-->
                             </div>
-                            
+
                             <div class="list-block no-hairlines  media-list virtual-list assetList" style="">
                                 <!-- <ul style="display: none;">
                                     <li class="item-content" data-imei="012252252458333" data-imsi="89314404000076077845" >
                                         <div class="item-inner">
                                             <div class="item-title-row">
-                                                <div class="item-title color-blue">IMEI: 012 252 252 458 333</div>
+                                                <div class="item-title color-red">IMEI: 012 252 252 458 333</div>
                                                 <div class="item-after"><a href="#" class="item-link f7-icons icon-other-menu-content menuDevice"></a></div>
                                             </div>
                                             <div class="item-subtitle">IMSI: 893 144 040 000 760 778 45</div>
@@ -222,7 +236,7 @@
                                     <li class="item-content" data-imei="012252252458332" data-imsi="89314404000076077845">
                                         <div class="item-inner">
                                             <div class="item-title-row">
-                                                <div class="item-title color-blue">IMEI: 012 252 252 458 332</div>
+                                                <div class="item-title color-red">IMEI: 012 252 252 458 332</div>
                                                 <div class="item-after"><a href="#" class="item-link f7-icons icon-other-menu-content menuDevice"></a></div>
                                             </div>
                                             <div class="item-subtitle">IMSI: 893 144 040 000 760 778 42</div>
@@ -230,50 +244,65 @@
                                         </div>
                                     </li>
                                 </ul> -->
-                            </div> 
+                            </div>
                             <div class="content-block content_block_notes first_login_block">
-                                <span>Search</span><br>  <!-- {{@global.LANGUAGE.COM_MSG06}} -->
-                                In this section, you can find the device by <b>IMEI</b> or <b>IMSI</b><!--, or <b>Name</b>-->. Select a specific tab and start the search.  <!-- {{@global.LANGUAGE.PROMPT_MSG001}} -->
+                                <span>{{@global.LANGUAGE.COM_MSG06}}</span>
+                                <img src="resources/images/search-decor.svg" alt='search'>
+                                <br> {{@global.LANGUAGE.PROMPT_MSG001}}
                             </div>
 
 
                         </div>
-                   
+
                     </div>
-					
                 </script>
-                <!-- </script> -->
             </div>
         </div>
     </div>
 
     <div class="popup tablet-fullscreen popup-win" id="win"></div>
+    <!-- About popover -->
+    <div class="popover popover-notice">
+        <div class="popover-angle"></div>
+        <div class="popover-inner">
+            <div class="content-block">
+                <p>Installation Location</p>
+                <p>Location of device within the asset.</p>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="resources/libraries/framework7/js/framework7.min.js"></script>
-     <!-- jquery libraries -->
+    <!-- jquery libraries -->
     <script type="text/javascript" src="resources/libraries/jquery/jqury-2.2.4.min.js"></script>
-<!--     <script type="text/javascript" src="resources/libraries/jquery/jquery.signalR-2.2.0.min.js"></script> -->
+    <!--     <script type="text/javascript" src="resources/libraries/jquery/jquery.signalR-2.2.0.min.js"></script> -->
     <!-- Path to leaflet Library JS-->
     <script type="text/javascript" src="resources/libraries/leaflet/leaflet.js"></script>
     <!-- Moment -->
-    <script type="text/javascript" src="resources/libraries/moment/moment.min.js" ></script>
-    <!-- Cropper Camera --> 
+    <script type="text/javascript" src="resources/libraries/moment/moment.min.js"></script>
+    <!-- Cropper Camera -->
     <script type="text/javascript" src="resources/plugins/cropper/js/cropper.min.js"></script>
     <!-- mask input -->
     <script src="resources/plugins/maskedinput/maskedinput.js"></script>
     <!-- jClass -->
     <script type="text/javascript" src="resources/libraries/jClass.mini.js"></script>
-    
+    <!-- <script type="text/javascript" src="resources/plugins/permissions/permissions-dummy.js"></script> -->
+    <!-- permissions-->
+    <script type="text/javascript" src="resources/plugins/permissions/permissions.js"></script>
+
+
     <!-- Path to your app js-->
-    <script type="text/javascript" src="resources/app/helper.js" ></script>
-    <script type="text/javascript" src="resources/app/ProtocolHelpers.js" ></script>
-    <script type="text/javascript" src="resources/app/languages.js" ></script>
-<!--     <script type="text/javascript" src="resources/app/hubs.js"></script>
+    <script type="text/javascript" src="resources/app/helper.js"></script>
+    <script type="text/javascript" src="resources/app/ProtocolHelpers.js"></script>
+    <script type="text/javascript" src="resources/app/languages.js"></script>
+    <!--     <script type="text/javascript" src="resources/app/hubs.js"></script>
 <script type="text/javascript" src="resources/app/HubPlus.js" ></script> -->
     <script type="text/javascript" src="resources/app/my-app.js?version=0.2"></script>
 
-    
-  </body>
-</html> 
+
+
+</body>
+
+</html>
