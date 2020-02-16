@@ -1479,8 +1479,8 @@ App.onPageInit('asset.settings', function(page) {
             "Code": getUserinfo().code,
             "Id": TargetAsset.Id,
             "Name": $$(page.container).find('input[name="AssetName"]').val(),
-            "SpeedUnit": $$(page.container).find('select[name="Unit"]').val(),
-            "InitMileage": $$(page.container).find('input[name="Odometer"]').val(),
+            "SpeedUnit": "KT",//$$(page.container).find('select[name="Unit"]').val(),
+            //"InitMileage": $$(page.container).find('input[name="Odometer"]').val(),
             //"InitAccHours": "",
             "TagName": $$(page.container).find('input[name="LicensePlate"]').val(),
             "Attr1": $$(page.container).find('input[name="Describe1"]').val(),
@@ -1500,7 +1500,7 @@ App.onPageInit('asset.settings', function(page) {
 
         };
         if (fitmentOptSelectedArr.indexOf('D') != -1) {
-            data.Attr6 = $$(page.container).find('input[name="FitmentOptCustom"]').val();
+            //data.Attr6 = $$(page.container).find('input[name="FitmentOptCustom"]').val();
         }
   
         App.showPreloader();
@@ -2991,7 +2991,7 @@ function setAssetType(assetType, selectedValue) {
 // устанавливаем список инсталлеров с текущим id
 function setSettingsUserListWithCurrent(userList, currentId) {
     let installerCodeSelect = $$('[name="InstallerCode"]');
-	
+	console.log(userList, currentId);
 	var userInfo = getUserinfo();    
     
 	if (userList) {
@@ -3006,6 +3006,7 @@ function setSettingsUserListWithCurrent(userList, currentId) {
             optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
         });
 		//optionsHTML = '<option value="0" ">No Installer Id is selected</option>' + optionsHTML;
+		optionsHTML = '<option value="0" "></option>' + optionsHTML;
         installerCodeSelect.html(optionsHTML);
     }
 
@@ -3015,6 +3016,7 @@ function setSettingsUserListWithCurrent(userList, currentId) {
 // устанавливаем список инсталлеров с текущим id
 function setUserListWithCurrent(userList, currentId) {
     let installerCodeSelect = $$('[name="installerCode"]');
+	console.log(userList, currentId);
 	var userInfo = getUserinfo();    
 	//console.log(userList,currentId,userInfo.userCode)
    
@@ -3029,7 +3031,7 @@ function setUserListWithCurrent(userList, currentId) {
 			}
             optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
         });
-		//optionsHTML = '<option value="0" ">No Installer Id is selected</option>' + optionsHTML;
+		optionsHTML = '<option value="0" "></option>' + optionsHTML;
         installerCodeSelect.html(optionsHTML);
     }
 
@@ -3152,6 +3154,7 @@ function loadInstallNotice() {
 						lot: asset.Lot,
 						assetType: asset.AssetType,
 						assetCondition: asset.AssetCondition,
+						Notes: asset.Notes,
                     }
                 });
 				
@@ -3231,10 +3234,10 @@ function loadPageSettings() {
                         Describe2: asset.Describe2,
                         Describe3: asset.Describe3,
                         Describe4: asset.Describe4,
-                        Odometer: asset.InitMilage,
-                        Unit: asset.Unit,
+                        //Odometer: asset.InitMilage,
+                        //Unit: asset.Unit,
                         InstallPosition: asset.InstallPosition,
-                        FitmentOpt: asset.FitmentOpt,
+                        //FitmentOpt: asset.FitmentOpt,
                         FitmentOptCustom: asset.Describe6,
                         AssetImg: AssetImg,
                         StockNumber: asset.StockNumber,
