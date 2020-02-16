@@ -25,7 +25,6 @@
             </div>
         </div>
 
-
         <div class="content-block-title color-red">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG17}}</div>
 
         <div class="list-block media-list no-hairlines-between no-hairlines sliding active arrow-up">
@@ -75,13 +74,14 @@
                         </div>
                     </div>
                 </li>
+				
                 <li class="item-content">
                     <div class="item-media"></div>
                     <div class="item-inner">
                         <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG20}}</div>
 						<div class="item-input dflex">
                             <select name="installerCode" data-set="{{installerCode}}">  
-                                <option value="0">Select Installer Code</option>  <!-- multiple maxlength="1"                 -->   
+                                <!--<option value="0">Select Installer Code</option>   multiple maxlength="1"                 -->   
                             </select>
                             <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
                         </div>
@@ -90,10 +90,10 @@
 				<li class="item-content">
                     <div class="item-media"></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG19}}</div><!--<span class="color-red">*</span>-->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG19}}</div>
                         <div class="item-input dflex">
                             <select name="assetCondition" data-set="{{assetCondition}}">  
-                                <option value="0">Select Asset Condition</option>                   
+                                <option value="0">Select Asset Condition</option>                      
                             </select>
                             <i class="f7-icons icon-arrow-drop-down select_arrow"></i>
                         </div>
@@ -102,7 +102,7 @@
                 <li class="item-content">
                     <div class="item-media"><i class="f7-icons icon-other-unit"></i></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG06}}<span class="color-red">*</span></div><!--<span class="color-red">*</span>-->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG06}}<span class="color-red">*</span></div>
                         <div class="item-input dflex">
                             <select class="border-bottom" name="assetType" data-set="{{assetType}}">                               
                                 <option value="0">Select Asset Type</option>
@@ -116,7 +116,7 @@
                 <li class="item-content">
                     <div class="item-media"><i class="f7-icons icon-other-asset-details"></i></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG07}}</div><!--<span class="color-red">*</span>-->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG07}}</div>
                         <div class="item-input">
                             <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG07}}" name="Describe1" value="{{Describe1}}" maxlength="200" class="">
                         </div>
@@ -125,7 +125,7 @@
                 <li class="item-content">
                     <div class="item-media"></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG08}}</div><!--<span class="color-red">*</span>-->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG08}}</div>
                         <div class="item-input">
                             <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG08}}" name="Describe2" value="{{Describe2}}" maxlength="200" class="">
                         </div>
@@ -134,7 +134,7 @@
                 <li class="item-content">
                     <div class="item-media"></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG09}}</div><!--<span class="color-red">*</span>-->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG09}}</div>
                         <div class="item-input">
                             <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG09}}" name="Describe3" value="{{Describe3}}" maxlength="200" class="">
                         </div>
@@ -144,14 +144,14 @@
                 <li class="item-content">
                     <div class="item-media"></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG10}}</div><!--<span class="color-red">*</span>-->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG10}}</div>
                         <div class="item-input">
                             <input type="tel" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG10}}" name="Describe4" value="{{Describe4}}" maxlength="200" class="only_numbers">
                         </div>
                     </div>
                 </li>
 
-                <li class="item-content display-none">
+                <li class="item-content">
                     <div class="item-media"><i class="f7-icons icon-menu-user-settings"></i></div>
                     <div class="item-inner">
                         <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG11}}<span class="color-red">*</span></div>
@@ -168,13 +168,11 @@
                         </div>
                     </div>
                 </li>
-				
-				
 
-                <li class="item-content display-none">
+                <li class="item-content">
                     <div class="item-media"></div>
                     <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG12}}<span class="color-red">*</span></div><!---->
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG12}}<span class="color-red">*</span></div>
                         <div class="item-input dflex">
                             <select name="servicePlan" data-set="{{servicePlan}}" disabled>  
                                     <option value="0">Select Service Plan</option>                               
@@ -190,15 +188,6 @@
                 </li>
 
 
-                <!--<li class="item-content">
-                    <div class="item-media"></div>
-                    <div class="item-inner">
-                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG03}}<span class="color-red">*</span></div>
-                        <div class="item-input">
-                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG03}}" name="registration" value="{{registration}}" maxlength="200" class="">
-                        </div>
-                    </div>
-                </li>-->
                 <li class="display-none">
                     <div class="item-content">
                         <div class="item-media"></div>
@@ -227,6 +216,15 @@
                     </div>
                 </li>
 
+                <!--<li class="item-content">
+                    <div class="item-media"></div>
+                    <div class="item-inner">
+                        <div class="item-title label">{{@global.LANGUAGE.ASSET_INSTALLATION_MSG03}}<span class="color-red">*</span></div>
+                        <div class="item-input">
+                            <input type="text" placeholder="{{@global.LANGUAGE.ASSET_INSTALLATION_MSG03}}" name="registration" value="{{registration}}" maxlength="200" class="">
+                        </div>
+                    </div>
+                </li>-->
 
                 <li class="item-content">
                     <div class="item-media"></div>

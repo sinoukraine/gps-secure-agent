@@ -233,13 +233,15 @@ var App = new Framework7({
 		// change default "OK" button text
 		buttonOk: 'Done',
 	},
-    swipePanel: 'left',
-    swipeBackPage: false,
-    material: true,
+	animateNavBackIcon: true,  
+	swipeBackPage: false,
+    swipePanel: 'left',    
+    //material: true,
     //pushState: true,       
     allowDuplicateUrls: true,
     sortable: false,
     modalTitle: 'Quiktrak Secure Agent',
+    notificationTitle: 'Quiktrak Secure Agent',
     precompileTemplates: true,
     template7Pages: true,
     tapHold: false, //enable tap hold events
@@ -258,7 +260,8 @@ var $$ = Dom7;
 var mainView = App.addView('.view-main', {
     //main: true,
     domCache: true,
-    swipeBackPage: false
+    swipeBackPage: false,
+   // dynamicNavbar: true,
 });
 
 
@@ -307,14 +310,10 @@ API_URL.URL_GET_DETAILS_BY_VIN = "http://ss.sinopacific.com.ua/vin/v1/";
 API_URL.URL_INSTALLATION_NOTICE = 'http://api.m2mglobaltech.com/Common/v1/Activation/Install';
 API_URL.URL_VERIFY = 'https://api.m2mglobaltech.com/Common/V1/Activation/Verify';
 API_URL.URL_SSP = 'https://api.m2mglobaltech.com/Common/V1/Activation/SSP';
-
-API_URL.URL_GET_ASSET_INFO = 'https://api.m2mglobaltech.com/Common/v1/Activation/GetAssetsInfo';
+API_URL.URL_EDIT_ASSET = API_DOMIAN4 + "AssetEdit?MajorToken={0}&MinorToken={1}&imei={2}&name={3}&describe1={4}&describe2={5}&describe3={6}&describe4={7}&photo={8}&alias&";
 
 //API_URL.URL_USER_LIST_BY_ROLES = 'https://api.m2mglobaltech.com/QuikTrak/V1/User/GetUserListByRoles';
 API_URL.URL_USER_LIST_BY_ROLES = "https://api.m2mglobaltech.com/QuikTrak/V1/User/GetUserListByRoles?MajorToken={0}&Roles={1}";
-
-API_URL.URL_EDIT_ASSET = API_DOMIAN4 + "AssetEdit?MajorToken={0}&MinorToken={1}&imei={2}&name={3}&describe1={4}&describe2={5}&describe3={6}&describe4={7}&photo={8}&alias&";
-
 
 
 
@@ -385,26 +384,8 @@ var virtualAssetList = App.virtualList('.assetList', {
     // Display the each item using Template7 template parameter
     renderItem: function(index, item) { 
 		
-		if(index == 0){
-			App.confirm('Go to Install Notice page for Asset IMEI:' + item.IMEI + '?', 'Quiktrak Secure Agent', callbackOk,  callbackCancel);
-			
-			function callbackOk(){
-				var parrent = $$('.assetList .item-inner').closest('.item-content');
-				
-				TargetAsset.IMEI = !parrent.data('imei') ? '' : parrent.data('imei');
-				TargetAsset.IMSI = !parrent.data('imsi') ? '' : parrent.data('imsi');
-				TargetAsset.Name = !parrent.data('name') ? '' : parrent.data('name');
-				TargetAsset.Id = !parrent.data('id') ? '' : parrent.data('id');
-				TargetAsset.Type = !parrent.data('type') ? '' : parrent.data('type');
-				TargetAsset.Customer = !parrent.data('customer') ? '' : parrent.data('customer');
-				TargetAsset.ASSET_IMG = '';
-
-				loadInstallNotice();
-			}
-			
-			function callbackCancel(){
-				return
-			}
+		if(index === 0){
+			showModalAskForInstallNotice(item);
 		}
 		
         var ret = '';
@@ -434,6 +415,22 @@ var virtualAssetList = App.virtualList('.assetList', {
         return ret;
     },
 });
+
+function showModalAskForInstallNotice(item){
+	App.confirm('Go to Install Notice page for Asset IMEI:' + item.IMEI + '?', 'Quiktrak Secure Agent', function(){
+			TargetAsset.IMEI = !item.IMEI ? '' : item.IMEI;
+			TargetAsset.IMSI = !item.IMSI ? '' : item.IMSI;
+			TargetAsset.Name = !item.Name ? '' : item.Name;
+			TargetAsset.Id 	 = !item.Id ? '' : item.Id;
+			TargetAsset.Type = !item.ProductName ? '' : item.ProductName;
+			TargetAsset.Customer = !item.Customer ? '' : item.Customer;
+			TargetAsset.ASSET_IMG = '';
+			loadInstallNotice();
+		},  function(){
+			return;
+		}
+	);
+}
 
 
 
@@ -509,7 +506,7 @@ $$('body').on('click', 'a.external', function(event) {
 });
 
 
-$$('body').on('click', '.search_tabbar .tab-link', function() {
+/*$$('body').on('click', '.search_tabbar .tab-link', function() {
 
     var href = $$(this).attr('href');
     var searchInput = $$('.formSearchDevice input[name="searchInput"]');
@@ -528,6 +525,25 @@ $$('body').on('click', '.search_tabbar .tab-link', function() {
             break;
     }
 
+});*/
+
+$$('body').on('click', '.search_tabbar .tab-link', function () {
+    
+    var href = $$(this).attr('href');
+    var searchInput = $$('.formSearchDevice input[name="searchInput"]');
+    
+    switch(href){
+        case '#tab-imei':
+            searchInput.data('searchby','IMEI');
+            break;
+        case '#tab-imsi':
+            searchInput.data('searchby','IMSI');
+            break;
+
+        default:
+        searchInput.data('searchby','Name');
+    }
+    
 });
 
 $$('body').on('click', '.scanBarCode', function() {
@@ -601,8 +617,11 @@ $$('.formSearchDevice input[name="searchInput"]').blur(function() {
 
 $$('body').on('submit', '.formSearchDevice', function(e) {
     e.preventDefault();
-    submitSearchForm();
+    //submitSearchForm();
     return false;
+});
+$$('.formSearchDevice input[name="searchInput"]').on('search', function () {    
+    submitSearchForm($$(this));
 });
 $$('body').on('click', '.searchDevice', function() {
     submitSearchForm();
@@ -897,10 +916,10 @@ App.onPageInit('user.password', function(page) {
                     encodeURIComponent(password.old),
                     encodeURIComponent(password.new)
                 );
-                
+               
                 App.showPreloader();
                 JSON1.request(url, function(result) {
-                      
+                        
                         if (result.MajorCode == '000') {
                             App.alert(LANGUAGE.PROMPT_MSG003, function() {
                                 logout();
@@ -1333,15 +1352,16 @@ App.onPageInit('asset.commands', function(page) {
 
 
 App.onPageInit('asset.settings', function(page) {
-
+	//setTimeout(function () { 
+       //alert(2);
     var sendSetting = $$(page.container).find('.sendSetting');
-    //var showBlockControll = $$(page.container).find('.showBlockControll');
+    var showBlockControll = $$(page.container).find('.showBlockControll');
 
     $$('.upload_photo, .asset_img img').on('click', function(e) {
         App.actions(cameraButtons);
     });
 
-    let item = {};
+   
     // item.Photo = Photo;
     // let imgInner = $$('.asset_img');
     // let assetImg = getAssetImg(item, { 'assetList': true });
@@ -1361,12 +1381,12 @@ App.onPageInit('asset.settings', function(page) {
     var cardNumber = $$(page.container).find('.card_number');
     var cardHolder = $$(page.container).find('.card_holder');*/
 
-    var fitmentOptSelect = $$(page.container).find('[name="FitmentOpt"]');
+    /*var fitmentOptSelect = $$(page.container).find('[name="FitmentOpt"]');
     var fitmentOptSelectSet = fitmentOptSelect.data("set");
     var fitmentOptCustomWrapper = $$(page.container).find('.fitment_opt_custom_wrapper');
-    var fitmentOptSelectedArr = [];
+    var fitmentOptSelectedArr = [];*/
 
-    var VINinputEl = $$(page.container).find('[name="Describe7"');
+    var VINinputEl = $$(page.container).find('[name="Describe7"]');
 
     var makeEl = $$(page.container).find('input[name="Describe1"]');
     var modelEl = $$(page.container).find('input[name="Describe2"]');
@@ -1376,7 +1396,7 @@ App.onPageInit('asset.settings', function(page) {
 
 
 
-    VINinputEl.on('blur change', function() {
+    VINinputEl.on('blur change touchleave touchcancel', function() {
         if ($$(this).data('prev-val') != this.value) {
             $$(this).data('prev-val', this.value);
             checkVinNumber({
@@ -1386,7 +1406,7 @@ App.onPageInit('asset.settings', function(page) {
                     Describe2: modelEl,
                     Describe3: colorEl,
                     Describe4: yearEl,
-                    Describe7: VINinputEl,
+					Describe7: VINinputEl,
                 }
             });
         }
@@ -1403,7 +1423,7 @@ App.onPageInit('asset.settings', function(page) {
                     Describe2: modelEl,
                     Describe3: colorEl,
                     Describe4: yearEl,
-                    Describe7: VINinputEl,
+					Describe7: VINinputEl,
                 }
             });
         }
@@ -1413,14 +1433,14 @@ App.onPageInit('asset.settings', function(page) {
     selectUnitSpeed.val(selectUnitSpeed.data("set"));
 
 
-    if (fitmentOptSelectSet) {
+   /* if (fitmentOptSelectSet) {
         if (fitmentOptSelectSet.substr(-1) == ',') {
             fitmentOptSelectSet = fitmentOptSelectSet.slice(0, -1);
         }
         $.each(fitmentOptSelectSet.split(","), function(i, e) {
             fitmentOptSelect.find('option[value="' + e + '"]').prop("selected", true);
         });
-    }
+    }*/
 
 
     /*paymentType.on('change', function(){        
@@ -1453,7 +1473,7 @@ App.onPageInit('asset.settings', function(page) {
         App.actions(cameraButtons);        
     });*/
 
-    fitmentOptSelect.on('change', function() {
+    /*fitmentOptSelect.on('change', function() {
         fitmentOptSelectedArr = [];
 
         $$(this).find('option:checked').each(function() {
@@ -1471,10 +1491,11 @@ App.onPageInit('asset.settings', function(page) {
         fitmentOptCustomWrapper.css('display', 'flex');
     } else {
         fitmentOptCustomWrapper.hide();
-    }
+    }*/
 
     $$(sendSetting).on('click', function() {
 
+	//alert('clicked');
         var data = {
             "Code": getUserinfo().code,
             "Id": TargetAsset.Id,
@@ -1489,20 +1510,18 @@ App.onPageInit('asset.settings', function(page) {
             "Attr4": $$(page.container).find('input[name="Describe4"]').val(),
             "Attr7": $$(page.container).find('input[name="Describe7"]').val(),
             "InstallPosition": $$(page.container).find('input[name="InstallPosition"]').val(),
-            "RemoteImmobilise": fitmentOptSelectedArr.toString(),
+            //"RemoteImmobilise": fitmentOptSelectedArr.toString(),
             "Photo": TargetAsset.ASSET_IMG,
             "StockNumber": $$(page.container).find('input[name="StockNumber"]').val(),
             "Lot": $$(page.container).find('select[name="Lot"]').val(),
             "InstallerCode": $$(page.container).find('select[name="InstallerCode"]').val(),
             "AssetCondition": $$(page.container).find('select[name="AssetCondition"]').val(),
             "AssetType": $$(page.container).find('select[name="AssetType"]').val(),
-			//"Icon": TargetAsset.ASSET_IMG,
 
         };
-        if (fitmentOptSelectedArr.indexOf('D') != -1) {
-            //data.Attr6 = $$(page.container).find('input[name="FitmentOptCustom"]').val();
-        }
-  
+        /*if (fitmentOptSelectedArr.indexOf('D') != -1) {
+            data.Attr6 = $$(page.container).find('input[name="FitmentOptCustom"]').val();
+        }*/
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_EDIT_DEVICE, data, function(result) {
                 
@@ -1519,6 +1538,8 @@ App.onPageInit('asset.settings', function(page) {
             }
         );
     });
+	
+	//}, 5000);
 });
 
 App.onPageInit('client.details', function(page) {
@@ -1542,7 +1563,7 @@ App.onPageInit('client.details', function(page) {
 
 
         JSON1.requestPost(API_URL.URL_SENT_NOTIFY, data, function(result) {
-               
+                
                 if (result.MajorCode == '000') {
 
                     loadPageVerification(result.Data);
@@ -1638,6 +1659,7 @@ function loadPageStatusNew(data) {
 
 
     let statusObj = JSON.parse(data.Status);
+ 
 
     // TargetAsset.IMEI = data.Imei;
     mainView.router.load({
@@ -1681,7 +1703,7 @@ function requestPositionVirify() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_LIVE_POSITION, data, function(result) {
-               
+                
                 if (result.MajorCode == '000') {
                     var props = result.Data;
                     props.Imei = TargetAsset.IMEI;
@@ -1844,6 +1866,7 @@ function clearUserInfo() {
     //var MinorToken = userInfo.MinorToken;      
     //var MajorToken = userInfo.MajorToken;
     var pushList = getNotificationList();
+    var elemRc = localStorage.elem_rc_flag;
 
     //window.PosMarker = {};
     TargetAsset = {};
@@ -1851,7 +1874,10 @@ function clearUserInfo() {
     $$('.searchClear').click();
 
     $$('.remaining_counter').html('---');
-
+	
+	if (elemRc) {
+        localStorage.elem_rc_flag = 1;
+    }
 
     if ($$('.page_index .page-content').hasClass('first_login')) {
 
@@ -1865,6 +1891,9 @@ function clearUserInfo() {
 
     localStorage.clear();
 
+	if (elemRc) {
+        localStorage.elem_rc_flag = 1;
+    }
 
     if (pushList) {
         localStorage.setItem("COM.QUIKTRAK.LIVE.NOTIFICATIONLIST.INSTALLER", JSON.stringify(pushList));
@@ -1958,6 +1987,11 @@ function login() {
                     localStorage.ACCOUNT = account.val();
                     localStorage.PASSWORD = password.val();
                 }
+				
+				if (result.Data.elemRc) {
+                    localStorage.elem_rc_flag = 1;
+                }
+				
                 account.val(null);
                 password.val(null);
                 setUserinfo(result.Data);
@@ -2019,6 +2053,7 @@ function hideKeyboard() {
 
 function getCreditBalance(vsMsg) {
     var userInfo = getUserinfo();
+    
     var data = {
         "MinorToken": userInfo.userCode
     };
@@ -2026,6 +2061,7 @@ function getCreditBalance(vsMsg) {
         App.showPreloader();
     }
     JSON1.requestPost(API_URL.URL_GET_CREDIT, data, function(result) {
+            
             if (result.MajorCode == '000') {
                 updateUserCrefits(result.Data.Credit);
                 userInfo.credit = result.Data.Credit;
@@ -2159,8 +2195,10 @@ function toIndex() {
     });
 }
 
-function submitSearchForm() {
-    var input = $$('.formSearchDevice input[name="searchInput"');
+function submitSearchForm(input = false) {
+	if (!input) {
+		input = $$('.formSearchDevice input[name="searchInput"');
+	}    
 
     if (input.val()) {
 
@@ -2310,6 +2348,7 @@ function loadPageActivation(planCode) {
 function checkVinNumber(params){
         if (params && params.VIN) {
             var vinLength = params.VIN.length;
+           
             if (vinLength == 18){
                 params.VIN = params.VIN.slice(1);
                 getVehicleDetailsByVin(params);
@@ -2353,13 +2392,23 @@ function checkVinNumber(params){
         }
     }
 
+App.onPageAfterAnimation('asset.settings', function(page){
+    //getSettingsDefaultParams($$(page.container).find('.imei-num').html());
+});
+
+App.onPageAfterAnimation('asset.installation.notice', function(page){
+    //getDefaultParams($$(page.container).find('[name="IMEI"]').val());
+});
+
+
 // installation notice page
 App.onPageInit('asset.installation.notice', function(page) {
 
+//setTimeout(function () { 
     $$('.upload_photo, .asset_img img').on('click', function(e) {
         App.actions(cameraButtons);
     });
-    let sendInstallNotice = $$(page.container).find('.sendInstallNotice');
+    let sendInstallNotice = $$('body').find('.sendInstallNotice');//$$(page.container)
     let AssetTypeSelect = $$(page.container).find('[name="assetType"]');
     let optionsHTML = '';
     let optionsArry = [];
@@ -2372,8 +2421,10 @@ App.onPageInit('asset.installation.notice', function(page) {
     let fitmentOptCustomWrapper = $$(page.container).find('.fitment_opt_custom_wrapper');
     let fitmentOptSelectedArr = [];
 
+	
+    //getDefaultParams(IMEI.val());
 
-    var VINinputEl = $$(page.container).find('[name="vinNumber"');
+    var VINinputEl = $$(page.container).find('[name="vinNumber"]');
 
     var makeEl = $$(page.container).find('input[name="Describe1"]');
     var modelEl = $$(page.container).find('input[name="Describe2"]');
@@ -2383,7 +2434,7 @@ App.onPageInit('asset.installation.notice', function(page) {
 
 
 
-    VINinputEl.on('blur change', function() {
+    VINinputEl.on('blur change touchleave touchcancel', function() {
         if ($$(this).data('prev-val') != this.value) {
             $$(this).data('prev-val', this.value);
             checkVinNumber({
@@ -2485,7 +2536,6 @@ App.onPageInit('asset.installation.notice', function(page) {
                     ProductCode: $$(page.container).find('[name="deviceType"]').val(),
                     IMEI: $$(page.container).find('[name="IMEI"]').val(),
                     DealerToken: $$(page.container).find('[name="dealerToken"]').val(),
-					
                 });
             } else {
                 console.log('no found productcode or IMEI or dealertoken');
@@ -2501,9 +2551,9 @@ App.onPageInit('asset.installation.notice', function(page) {
             "VinNumber": $$(page.container).find('input[name="vinNumber"]').val(),
             "Imei": $$(page.container).find('input[name="IMEI"]').val(),
             //"Name": $$(page.container).find('input[name="registration"]').val(),
-            "StockNumber": $$(page.container).find('input[name="stockNumber"]').val(),
 			"Name": $$(page.container).find('input[name="stockNumber"]').val(),
 			"Registration": $$(page.container).find('input[name="stockNumber"]').val(),
+            "StockNumber": $$(page.container).find('input[name="stockNumber"]').val(),
             "Lot": $$(page.container).find('select[name="lot"]').val(),
             "AssetType": $$(page.container).find('select[name="assetType"]').val(),
             "Describe1": $$(page.container).find('input[name="Describe1"]').val(),
@@ -2526,11 +2576,14 @@ App.onPageInit('asset.installation.notice', function(page) {
                     Data.Fitment = $$(page.container).find('input[name="FitmentOptCustom"]').val();
                 }
             }
+
         }
+		
         // && Data.Solution && Data.ServiceProfile && Data.AssetType && Data.Describe1 && Data.Describe2 && Data.Describe3 && Data.Describe4
         if (Data.DealerToken && Data.Name && Data.VinNumber && Data.StockNumber  && Data.Imei) {
-            App.showPreloader();
+       	App.showPreloader();
             JSON1.requestPost(API_URL.URL_INSTALLATION_NOTICE, Data, function(result) {
+					
                     if (result.MajorCode == '000') {
                         mainView.router.back();
                     } else {
@@ -2552,6 +2605,7 @@ App.onPageInit('asset.installation.notice', function(page) {
 
 
 
+				//}, 5000);	
 
 
 });
@@ -2562,7 +2616,6 @@ App.onPageInit('asset.installation.notice', function(page) {
 function selectChange() {
     let solution = $$('[name="solutionType"]');
 }
-
 
 // узнаем информацио о пользователе 
 function getSettingsDefaultParams(imei, code) {
@@ -2602,12 +2655,48 @@ function getSettingsDefaultParams(imei, code) {
 
 }
 
-
 // узнаем информацио о пользователе 
 function getDefaultParams(imei, code) {
-     let data = {
+    let data = {
         'IMEI': imei,
 		'InstallerCode': code
+    };
+    App.showPreloader();
+    JSON1.requestPost(API_URL.URL_VERIFY, data,
+        function(result) {
+            if (result.MajorCode == '000') {
+                // console.log(result.Data.IMEI);
+                if (result.Data.IMEI == 'ACTIVATED') {
+                    App.alert('Your device is already activated');
+                    // mainView.router.back();
+                    // mainView.router.back({
+                    //     url: '/index.html/',
+                    //     force: true,
+                    // });
+                } else {
+                    if (result.Data.DEALER_TOKEN !== 'NONE' && result.Data.DEVICETYPE) {
+                        setDefaultData(result.Data, data.InstallerCode);
+						//getSettingsUserListWithCurrent(result.Data.DEALER_TOKEN)
+						//getUserListWithCurrent(result.Data.DEALER_TOKEN, data.InstallerCode)
+                    } else {
+                        console.log('no dealer token or device type');
+                    }
+                }
+            }
+            App.hidePreloader();
+        },
+        function() {
+            App.hidePreloader();
+            App.alert(LANGUAGE.COM_MSG02);
+        }
+    );
+
+}
+
+// узнаем информацио о пользователе 
+/*function getDefaultParams(imei) {
+    let data = {
+        'IMEI': imei,
     };
     App.showPreloader();
     JSON1.requestPost(API_URL.URL_VERIFY, data,
@@ -2624,8 +2713,7 @@ function getDefaultParams(imei, code) {
                     // });
                 } else {
                     if (result.Data.DEALER_TOKEN !== 'NONE' && result.Data.DEVICETYPE) {
-                        setDefaultData(result.Data, data.InstallerCode);
-						//setDefaultData(result.Data);
+                        //setDefaultData(result.Data);
                     } else {
                         console.log('no dealer token or device type');
                     }
@@ -2639,13 +2727,24 @@ function getDefaultParams(imei, code) {
         }
     );
 
+}*/
+
+// достаем инфу выбранного ассета
+function getAssetInfo(data) {
+    //console.log(data);
+    JSON1.requestPost(API_URL.URL_GET_ASSET_INFO, data,
+        function(result) {
+           
+        },
+        function() {
+        }
+    );
 }
 
 
 // передаем инфу на ssp метод, достаем инфу (солюшен, сервис)
-
-// передаем инфу на ssp метод, достаем инфу (солюшен, сервис)
 function setDefaultData(data, code) {
+ 
     if (data) {
         var deviceType = data.DEVICETYPE;
         var IMEI = $$('[name="IMEI"]').val();
@@ -2654,9 +2753,10 @@ function setDefaultData(data, code) {
         $$('[name="dealerToken"]').val(data.DEALER_TOKEN);
         $$('[name="deviceType"]').val(data.DEVICETYPE);
 
-		getUserListWithCurrent(dealerToken, code);
 		
-        if (deviceType && deviceType != 'NONE') {
+		getUserListWithCurrent(dealerToken, code);
+
+        if (deviceType && deviceType != 'NONE') {			
 			//getAssetInfo({ DealerToken: dealerToken, IMEI: IMEI});
             //getAdditionalData({ ProductCode: deviceType, IMEI: IMEI, DealerToken: dealerToken, SolutionCode: "Track" });
         } else {
@@ -2686,7 +2786,6 @@ function setSettingsDefaultData(data, code) {
         }
     }
 }
-
 
 //select user list with current user code
 function getSettingsUserListWithCurrent(data, code) {
@@ -2737,33 +2836,18 @@ function getUserListWithCurrent(data, code) {
 }
 
 
-// достаем инфу выбранного ассета
-function getAssetInfo(data) {
-    //console.log(data);
-    JSON1.requestPost(API_URL.URL_GET_ASSET_INFO, data,
-        function(result) {
-            console.log(result);
-        },
-        function() {
-        }
-    );
-}
-
 // достаем инфу (солюшен, сервис)
 function getAdditionalAssetSettingsData(data) {
     JSON1.requestPost(API_URL.URL_SSP, data,
         function(result) {
             if (result.MajorCode == '000') {
                 if (result.Data) {
-					console.log(result.Data);
                     //if (data.ProductCode) {
-						
                         setSettingsAssetType(result.Data.AssetTypes, data.AssetType);
                         setSettingsAssetCondition(data.AssetCondition);
                         setSettingsLot(result.Data.AssetGroups, data.Lot);
                         //setSettingsInstallerCode(result.Data.InstallerCode, data.InstallerCode);
 						getSettingsDefaultParams(data.IMEI, data.InstallerCode);
-						
                     //} else {
                         
                     //}
@@ -2782,9 +2866,9 @@ function getAdditionalAssetSettingsData(data) {
     );
 }
 
+
 // достаем инфу (солюшен, сервис)
 function getAdditionalData(data, ad = null) {
-     //console.log(data);
     JSON1.requestPost(API_URL.URL_SSP, data,
         function(result) {
             if (result.MajorCode == '000') {
@@ -2816,46 +2900,7 @@ function getAdditionalData(data, ad = null) {
             App.hidePreloader();
             // App.alert(LANGUAGE.COM_MSG02);
         }
-		
-		
     );
-}
-
-
-// записываем солюшен
-function setSolutionType(solutions) {
-    let solutionSelect = $$('[name="solutionType"]');
-
-    if (solutions) {
-        let optionsHTML = '';
-        $.each(solutions, function(key, val) {
-            if (val.Code == 'Track') {
-                optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
-            }
-        });
-        solutionSelect.html(optionsHTML);
-    }
-    // solutionSelect.change();
-
-}
-
-
-// записываем лот
-function setSettingsLot(data, selectedValue) {
-    let lotSelect = $$('[name="Lot"]');
-
-    if (data) {
-        let optionsHTML = '';
-        $.each(data, function(key, val) {
-			if(val.Code==selectedValue ){
-				isSelected = 'selected';
-			}else{
-				isSelected = '';
-			}
-            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.Name + '</option>';
-        });
-        lotSelect.html(optionsHTML);
-    }
 }
 
 
@@ -2896,8 +2941,22 @@ function setLot(data, selectedValue) {
 }
 
 
+// записываем солюшен
+function setSolutionType(solutions) {
+    let solutionSelect = $$('[name="solutionType"]');
 
+    if (solutions) {
+        let optionsHTML = '';
+        $.each(solutions, function(key, val) {
+            if (val.Code == 'Track') {
+                optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
+            }
+        });
+        solutionSelect.html(optionsHTML);
+    }
+    // solutionSelect.change();
 
+}
 
 
 // записываем сервис план
@@ -2908,7 +2967,7 @@ function setServicePlan(service) {
 
         let optionsHTML = '';
         $.each(service, function(key, val) {
-			if (val.Code == '33ENPEYR38SRC') {
+            if (val.Code == '33ENPEYR38SRC') {
 				optionsHTML += '<option value="' + val.Code + '" >' + val.Name + '</option>';
 			}
         });
@@ -2916,24 +2975,93 @@ function setServicePlan(service) {
     }
 }
 
-// записываем assetTypes
-function setSettingsAssetType(assetType, selectedValue) {
-    let assetTypeSelect = $$('[name="AssetType"]');
+// устанавливаем список инсталлеров с текущим id
+function setSettingsUserListWithCurrent(userList, currentId) {
+    let installerCodeSelect = $$('[name="InstallerCode"]');
 	
-    if (assetType) {
+	var userInfo = getUserinfo();    
+    
+	if (userList) {
         let optionsHTML = '';
 		let isSelected = '';
-        $.each(assetType, function(key, val) {
-			if(val==selectedValue ){
-				isSelected = 'selected';
-			}else if(val=="Car"){				
+        $.each(userList, function(key, val) {
+			if(val.Code==currentId ){ //console.log(currentId);
 				isSelected = 'selected';
 			}else{
 				isSelected = '';
 			}
-            optionsHTML += '<option value="' + val + '" ' + isSelected + '>' + val + '</option>';
+            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
         });
-        assetTypeSelect.html(optionsHTML);
+		optionsHTML = '<option value="0" ></option>' + optionsHTML;
+        installerCodeSelect.html(optionsHTML);
+    }
+
+}
+
+// устанавливаем список инсталлеров с текущим id
+function setUserListWithCurrent(userList, currentId) {
+    let installerCodeSelect = $$('[name="installerCode"]');
+	var userInfo = getUserinfo();    
+	//console.log(userList,currentId,userInfo.userCode)
+   
+	if (userList) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(userList, function(key, val) {
+			if(val.Code==currentId ){ //console.log(currentId);
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
+        });
+		optionsHTML = '<option value="0" ></option>' + optionsHTML;
+        installerCodeSelect.html(optionsHTML);
+    }
+
+}
+
+function setAssetCondition(selectedValue) {
+    let assetConditionSelect = $$('[name="assetCondition"]');
+	let assetCondition = [
+		LANGUAGE.ASSET_INSTALLATION_MSG21.toString(),
+		LANGUAGE.ASSET_INSTALLATION_MSG22.toString(),
+		LANGUAGE.ASSET_INSTALLATION_MSG23.toString()
+	];
+    if (assetConditionSelect) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(assetCondition, function(key, val) {
+			if(val.toLowerCase()==selectedValue ){
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.toLowerCase() + '" ' + isSelected + '>' + val + '</option>';
+        });
+        assetConditionSelect.html(optionsHTML);
+    }
+}
+
+function setSettingsAssetCondition(selectedValue) {
+    let assetConditionSelect = $$('[name="AssetCondition"]');
+	let assetCondition = [
+		LANGUAGE.ASSET_SETTINGS_MSG63.toString(),
+		LANGUAGE.ASSET_SETTINGS_MSG64.toString(),
+		LANGUAGE.ASSET_SETTINGS_MSG65.toString()
+	];
+    if (assetConditionSelect) {
+        let optionsHTML = '';
+		let isSelected = '';
+        $.each(assetCondition, function(key, val) {
+			if(val.toLowerCase()==selectedValue ){
+				isSelected = 'selected';
+			}else{
+				isSelected = '';
+			}
+            optionsHTML += '<option value="' + val.toLowerCase() + '" ' + isSelected + '>' + val + '</option>';
+        });
+        assetConditionSelect.html(optionsHTML);
     }
 }
 
@@ -2988,101 +3116,6 @@ function setAssetType(assetType, selectedValue) {
 }
 
 
-// устанавливаем список инсталлеров с текущим id
-function setSettingsUserListWithCurrent(userList, currentId) {
-    let installerCodeSelect = $$('[name="InstallerCode"]');
-	console.log(userList, currentId);
-	var userInfo = getUserinfo();    
-    
-	if (userList) {
-        let optionsHTML = '';
-		let isSelected = '';
-        $.each(userList, function(key, val) {
-			if(val.Code==currentId ){ //console.log(currentId);
-				isSelected = 'selected';
-			}else{
-				isSelected = '';
-			}
-            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
-        });
-		//optionsHTML = '<option value="0" ">No Installer Id is selected</option>' + optionsHTML;
-		optionsHTML = '<option value="0" "></option>' + optionsHTML;
-        installerCodeSelect.html(optionsHTML);
-    }
-
-}
-
-
-// устанавливаем список инсталлеров с текущим id
-function setUserListWithCurrent(userList, currentId) {
-    let installerCodeSelect = $$('[name="installerCode"]');
-	console.log(userList, currentId);
-	var userInfo = getUserinfo();    
-	//console.log(userList,currentId,userInfo.userCode)
-   
-	if (userList) {
-        let optionsHTML = '';
-		let isSelected = '';
-        $.each(userList, function(key, val) {
-			if(val.Code==currentId ){ //console.log(currentId);
-				isSelected = 'selected';
-			}else{
-				isSelected = '';
-			}
-            optionsHTML += '<option value="' + val.Code + '" ' + isSelected + '>' + val.FirstName + ' ' + val.SubName + '</option>';
-        });
-		optionsHTML = '<option value="0" "></option>' + optionsHTML;
-        installerCodeSelect.html(optionsHTML);
-    }
-
-}
-
-
-
-function setAssetCondition(selectedValue) {
-    let assetConditionSelect = $$('[name="assetCondition"]');
-	let assetCondition = [
-		LANGUAGE.ASSET_INSTALLATION_MSG21.toString(),
-		LANGUAGE.ASSET_INSTALLATION_MSG22.toString(),
-		LANGUAGE.ASSET_INSTALLATION_MSG23.toString()
-	];
-    if (assetConditionSelect) {
-        let optionsHTML = '';
-		let isSelected = '';
-        $.each(assetCondition, function(key, val) {
-			if(val.toLowerCase()==selectedValue ){
-				isSelected = 'selected';
-			}else{
-				isSelected = '';
-			}
-            optionsHTML += '<option value="' + val.toLowerCase() + '" ' + isSelected + '>' + val + '</option>';
-        });
-        assetConditionSelect.html(optionsHTML);
-    }
-}
-
-function setSettingsAssetCondition(selectedValue) {
-    let assetConditionSelect = $$('[name="AssetCondition"]');
-	let assetCondition = [
-		LANGUAGE.ASSET_SETTINGS_MSG63.toString(),
-		LANGUAGE.ASSET_SETTINGS_MSG64.toString(),
-		LANGUAGE.ASSET_SETTINGS_MSG65.toString()
-	];
-    if (assetConditionSelect) {
-        let optionsHTML = '';
-		let isSelected = '';
-        $.each(assetCondition, function(key, val) {
-			if(val.toLowerCase()==selectedValue ){
-				isSelected = 'selected';
-			}else{
-				isSelected = '';
-			}
-            optionsHTML += '<option value="' + val.toLowerCase() + '" ' + isSelected + '>' + val + '</option>';
-        });
-        assetConditionSelect.html(optionsHTML);
-    }
-}
-
 // записываем Фитмент опции
 function setFitmentOptions(optionsArry) {
     let FitmentOpt = $$('[name="FitmentOpt"]');
@@ -3098,14 +3131,14 @@ function setFitmentOptions(optionsArry) {
 
 
 function loadInstallNotice() {
-    var today = new Date();
+    /*var today = new Date();
     var year = today.getFullYear();
     var month = today.getMonth() + 1;
     month = month < 10 ? '0' + month : month;
     var day = today.getDate();
 
     var todayStr = year + '-' + month + '-' + day;
-
+	*/
     var data = {
         "Code": getUserinfo().code,
         "Id": TargetAsset.Id,
@@ -3123,41 +3156,43 @@ function loadInstallNotice() {
                         AssetImg = 'http://upload.quiktrak.co/Attachment/images/' + asset.Icon + '?' + new Date().getTime();
                     }
                 }
+
                 //getDefaultParams(asset.IMEI);
 
-                mainView.router.load({
-                    url: 'resources/templates/asset.installation.notice.html',
-                    context: {
-                        IMEI: TargetAsset.IMEI,
-                        IMSI: TargetAsset.IMSI,
-                        Type: TargetAsset.Type,
-                        Provider: getUserinfo().customerName,
-                        Customer: TargetAsset.Customer,
-                        AssetName: TargetAsset.Name,
-                        Date: todayStr,
-                        //Describe7: asset.Describe7,
-                        LicensePlate: asset.TagName,
-                        Describe1: asset.Describe1,
-                        Describe2: asset.Describe2,
-                        Describe3: asset.Describe3,
-                        Describe4: asset.Describe4,
-                        Odometer: asset.InitMilage,
-                        Unit: asset.Unit,
-                        InstallPosition: asset.InstallPosition,
-                        FitmentOpt: asset.FitmentOpt,
-                        FitmentOptCustom: asset.Describe6,
-                        AssetImg: AssetImg,						
-						stockNumber: asset.StockNumber,		
-						vinNumber: asset.Describe7,
-						registration: asset.Name,
-						installNotice: asset.InstallPosition,
-						lot: asset.Lot,
-						assetType: asset.AssetType,
-						assetCondition: asset.AssetCondition,
-						Notes: asset.Notes,
-                    }
-                });
-				
+				//App.alert(TargetAsset.IMEI);
+
+					mainView.router.load({
+						url: 'resources/templates/asset.installation.notice.html',
+						context: {
+							IMEI: TargetAsset.IMEI,
+							IMSI: TargetAsset.IMSI,
+							Type: TargetAsset.Type,
+							Provider: getUserinfo().customerName,
+							Customer: TargetAsset.Customer,
+							AssetName: TargetAsset.Name,
+							//Date: todayStr,
+							//Describe7: asset.Describe7,
+							LicensePlate: asset.TagName,
+							Describe1: asset.Describe1,
+							Describe2: asset.Describe2,
+							Describe3: asset.Describe3,
+							Describe4: asset.Describe4,
+							Odometer: asset.InitMilage,
+							Unit: asset.Unit,
+							InstallPosition: asset.InstallPosition,
+							FitmentOpt: asset.FitmentOpt,
+							FitmentOptCustom: asset.Describe6,
+							AssetImg: AssetImg,						
+							stockNumber: asset.StockNumber,		
+							vinNumber: asset.Describe7,
+							//registration: asset.Name,
+							installNotice: asset.InstallPosition,
+							lot: asset.Lot,
+							assetType: asset.AssetType,
+							assetCondition: asset.AssetCondition,
+						}
+					});
+					
 				let imei = TargetAsset.IMEI;
 				let lot = asset.Lot;				
 				let assetType = asset.AssetType;					
@@ -3175,6 +3210,11 @@ function loadInstallNotice() {
 					assetCondition,
 					installerCode
 				});
+				
+				//setServicePlan(result.Data.ServiceProfiles);
+                //setSolutionType(result.Data.Solutions);
+                 				 
+				
             } else {
                 App.alert(LANGUAGE.PROMPT_MSG013);
             }
@@ -3207,6 +3247,7 @@ function loadPageSettings() {
 
     App.showPreloader();
     JSON1.requestPost(API_URL.URL_GET_DEVICE_DETAIL, data, function(result) {
+
             if (result.MajorCode == '000') {
                 var asset = getAssetParametersName(result.Data);
                 var AssetImg = 'resources/images/photo-defaut.svg';
@@ -3219,8 +3260,12 @@ function loadPageSettings() {
                 }
 
                 mainView.router.load({
-                    url: 'resources/templates/asset.settings.html',
+                    url: 'resources/templates/asset.settings.html?v=1.1',
                     context: {
+                        /*IMEI: '<span>'+LANGUAGE.HOME_MSG00+'</span>: '+TargetAsset.IMEI,
+                        IMSI: '<span>'+LANGUAGE.HOME_MSG01+'</span>: '+TargetAsset.IMSI,
+                        Type: '<span>'+LANGUAGE.HOME_MSG06+'</span>: '+TargetAsset.Type,
+                        Provider: '<span>'+LANGUAGE.ASSET_SETTINGS_MSG06+'</span>: '+getUserinfo().customerName,*/
                         IMEI: TargetAsset.IMEI,
                         IMSI: TargetAsset.IMSI,
                         Type: TargetAsset.Type,
@@ -3240,12 +3285,11 @@ function loadPageSettings() {
                         //FitmentOpt: asset.FitmentOpt,
                         FitmentOptCustom: asset.Describe6,
                         AssetImg: AssetImg,
-                        StockNumber: asset.StockNumber,
+                        StockNumber: asset.StockNumber,						
                         Lot: asset.Lot,
                         InstallerCode: asset.InstallerCode,
                         AssetCondition: asset.AssetCondition,
                         AssetType: asset.AssetType,
-						
                     }
                 });
 				
@@ -3274,7 +3318,6 @@ function loadPageSettings() {
         }
     );
 }
-
 
 
 function loadPageVerification(data) {
@@ -3393,7 +3436,7 @@ function checkMapExisting() {
 
 
 function loadPageStatus(data) {
- 
+
     var timeCheck = data.CreateDateTime.indexOf('T');
     if (timeCheck != -1) {
         data.CreateDateTime = moment.utc(data.CreateDateTime).toDate();
@@ -3405,6 +3448,30 @@ function loadPageStatus(data) {
         context: data,
 
     });
+}
+
+var elem_rc =   '<li class="item-content list-panel-all close-panel " data-page="user.recharge.credit" id="menuRecharge" style="display:none;">' +
+                    '<div class="item-media">' +
+                        '<i class="f7-icons icon-other-payment"></i>' +
+                    '</div>' +
+                    '<div class="item-inner">' +
+                        '<div class="item-title">'+ LANGUAGE.MENU_MSG03+ '</div>' +
+                    '</div>' +
+                '</li>';
+$$(elem_rc).insertAfter('#menuSettings');
+
+elem_rc =   '<div class="menu_remainings" style="display:none;">' +
+                LANGUAGE.COM_MSG17+': <span class="remaining_counter">---</span> '+ LANGUAGE.COM_MSG18 +
+            '</div>';
+$$(elem_rc).insertAfter('#menu');
+
+function initExtend(){ 
+    if ($$("#menuRecharge").length !== 0 && localStorage.elem_rc_flag == 1) {
+        $$('body').find('#menuRecharge').css('display', 'flex');
+    }    
+    if ($$(".menu_remainings").length !== 0 && localStorage.elem_rc_flag == 1) {
+        $$('body').find('.menu_remainings').css('display', 'block');
+    }     
 }
 
 function loadPageClientDetails(data) {
@@ -3593,7 +3660,7 @@ function requestStatus() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_STATUS, data, function(result) {
-               
+                
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3715,7 +3782,7 @@ function requestVerify() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_GET_VERIFY3, data, function(result) {
-               
+                
                 if (result.MajorCode == '000') {
 
 
@@ -3734,7 +3801,7 @@ function requestVerify() {
 
                 } else if (result.MajorCode == '100') {
                     var msg = LANGUAGE.ASSET_VIRIFICATION_MSG12;
-                 
+                    
                     if (result.Data) {
                         switch (result.Data) {
                             case 'OFFLINE':
@@ -3788,7 +3855,7 @@ function requestImmobilise() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_SET_IMMOBILISE, data, function(result) {
-                
+             
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3832,7 +3899,7 @@ function requestUnimmobilise() {
 
         App.showPreloader();
         JSON1.requestPost(API_URL.URL_SET_UNIMMOBILISE, data, function(result) {
-                
+              
                 if (result.MajorCode == '000') {
                     turnNotificationOn();
                     App.addNotification({
@@ -3864,13 +3931,11 @@ function requestCommandHistory(params) {
             IMSI: params.IMSI,
             LastDay: params.LastDay,
         };
-     
-
         var container = $$('body');
         if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
         App.showProgressbar(container);
         JSON1.requestPost(API_URL.URL_GET_COMMAND_HISTORY, data, function(result) {
-               console.log(result);
+               
                 if (result.MajorCode == '000') {
                     if (result.Data && result.Data.length > 0 && virtualCommandsHistoryList) {
                         //if ( virtualCommandsHistoryList.items.length > 0) {
@@ -3932,7 +3997,7 @@ function getNewNotifications() {
                         }
                     }
                 } else {
-                    
+                   
                 }
             },
             function() {
@@ -3985,7 +4050,7 @@ function changeAssetNotificationState(device, obj) {
     }
 
     JSON1.requestPost(API_URL.URL_CHANGE_NOTIFICATION_STATUS, data, function(result) {
-           
+          
             if (result.MajorCode == '000') {
                 if (device) {
                     device.data('notifications', data.State);
@@ -4467,11 +4532,9 @@ function saveImg() {
             App.hidePreloader();
             var res = JSON.stringify(result);
             // alert(res);
-			//App.alert(res);
             result = typeof(result) == 'string' ? eval("(" + result + ")") : result;
             if (result.MajorCode == "000") {
                 TargetAsset.ASSET_IMG = result.Data;
-                
             } else {
                 App.alert('Something wrong');
             }
@@ -4479,7 +4542,7 @@ function saveImg() {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             App.hidePreloader();
-            App.alert(LANGUAGE.COM_MSG02);//
+            App.alert(LANGUAGE.COM_MSG02);
         }
     });
 
@@ -4576,7 +4639,7 @@ function openBarCodeReader(input) {
                       "Format: " + result.format + "\n" +
                       "Cancelled: " + result.cancelled);*/
                 if (result && result.text) {
-                    input.val(result.text);
+                    input.val(result.text);					
 					if(input.attr('name') == 'searchInput') {
 						submitSearchForm();
 					}
@@ -4669,7 +4732,6 @@ function getAssetImg(params, imgFor) {
 
 function getVehicleDetailsByVin(params) {
     if (params && params.VIN) {
-
         var container = $$('body');
         if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
         App.showProgressbar(container);
